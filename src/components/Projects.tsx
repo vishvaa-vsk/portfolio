@@ -184,7 +184,7 @@ const Projects = () => {
                     {project.title}
                   </h3>
 
-                  <p className="text-slate-600 dark:text-muted-foreground text-sm mb-3.5 leading-relaxed line-clamp-2 sm:line-clamp-none">
+                  <p className="text-slate-600 dark:text-muted-foreground text-sm mb-3.5 leading-relaxed break-words">
                     {project.description}
                   </p>
 
@@ -244,7 +244,7 @@ const Projects = () => {
                             size={16}
                             className="opacity-90 transition-all duration-300 group-hover/btn:opacity-100 group-hover/btn:-translate-y-[1px]"
                           />
-                          {t.projects.viewBtn}
+                          Live
                         </Button>
                       </a>
                     ) : (
