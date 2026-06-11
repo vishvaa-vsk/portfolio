@@ -18,17 +18,16 @@
 - [Tech Stack](#tech-stack)
 - [Folder Structure](#folder-structure)
 - [Run Locally](#run-locally)
-- [License](#license)
 
 ---
 
-## [About 🎯](#about)
+## About 🎯
 
 This portfolio highlights my experience in building intelligent, scalable backend systems, automating infrastructure operations, and integrating modern AI/LLM workflows. It serves as a visual showcase of my engineering trajectory, technical skillset, key projects, community leadership, and competitive achievements.
 
 ---
 
-## [Architecture & Features 🏗️](#architecture--features)
+## Architecture & Features 🏗️
 
 - **Immersive Visuals & 3D Interaction**: Integrated interactive 3D scene (Spline) and a smooth reactive canvas-based star field.
 - **Dynamic Styling**: A sleek, custom dark-first color scheme with glassmorphism overlays and interactive micro-animations.
@@ -38,7 +37,7 @@ This portfolio highlights my experience in building intelligent, scalable backen
 
 ---
 
-## [Tech Stack 🛠️](#tech-stack)
+## Tech Stack 🛠️
 
 - **Core**: React 18, TypeScript, Vite
 - **Styling & Motion**: Tailwind CSS, Framer Motion, Tailwind CSS Animate
@@ -48,7 +47,7 @@ This portfolio highlights my experience in building intelligent, scalable backen
 
 ---
 
-## [Folder Structure 📁](#folder-structure)
+## Folder Structure 📁
 
 ```text
 src/
@@ -87,7 +86,7 @@ src/
 
 ---
 
-## [Run Locally ▶️](#run-locally)
+## Run Locally ▶️
 
 ### Setup
 
