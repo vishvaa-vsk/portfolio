@@ -55,7 +55,7 @@ const projectData = [
     live: "",
   },
   {
-    image: "", // LSRW Skill Assessment Platform
+    image: "/LSRW_Skills.png", // LSRW Skill Assessment Platform
     tags: [
       "Flask",
       "MongoDB",
@@ -229,23 +229,43 @@ const Projects = () => {
                       </Button>
                     )}
 
-                    <a
-                      href={data.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex-1 group/btn"
-                    >
-                      <Button
-                        variant="outline"
-                        className="w-full rounded-xl border-[#FFEAE5] dark:border-white/10 bg-white dark:bg-transparent text-foreground dark:text-white shadow-sm hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-300 gap-2 h-10 text-sm font-medium"
+                    {data.live ? (
+                      <a
+                        href={data.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex-1 group/btn"
                       >
-                        <Github
-                          size={16}
-                          className="opacity-90 transition-all duration-300 group-hover/btn:opacity-100 group-hover/btn:-translate-y-[1px]"
-                        />
-                        {t.projects.codeBtn}
-                      </Button>
-                    </a>
+                        <Button
+                          variant="outline"
+                          className="w-full rounded-xl border-[#FFEAE5] dark:border-white/10 bg-white dark:bg-transparent text-foreground dark:text-white shadow-sm hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-300 gap-2 h-10 text-sm font-medium"
+                        >
+                          <ExternalLink
+                            size={16}
+                            className="opacity-90 transition-all duration-300 group-hover/btn:opacity-100 group-hover/btn:-translate-y-[1px]"
+                          />
+                          {t.projects.viewBtn}
+                        </Button>
+                      </a>
+                    ) : (
+                      <a
+                        href={data.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex-1 group/btn"
+                      >
+                        <Button
+                          variant="outline"
+                          className="w-full rounded-xl border-[#FFEAE5] dark:border-white/10 bg-white dark:bg-transparent text-foreground dark:text-white shadow-sm hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-300 gap-2 h-10 text-sm font-medium"
+                        >
+                          <Github
+                            size={16}
+                            className="opacity-90 transition-all duration-300 group-hover/btn:opacity-100 group-hover/btn:-translate-y-[1px]"
+                          />
+                          {t.projects.codeBtn}
+                        </Button>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

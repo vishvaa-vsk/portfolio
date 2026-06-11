@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, memo, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { FileText, Github, Linkedin, Mail } from "lucide-react";
 import { t } from "@/locales/content";
+import { useIsMobile } from "@/hooks/use-mobile";
 import StarBackground from "./StarBackground";
 
 // Code Splitting: Spline is a heavy library, we isolate the loading to not block the initial page load.
@@ -50,6 +51,7 @@ TypewriterLoop.displayName = "TypewriterLoop";
 
 /* ─── Hero ───────────────────────────────────────────────────────────────────── */
 const Hero = () => {
+  const isMobile = useIsMobile();
 
   const links = useMemo(
     () => ({
@@ -164,7 +166,7 @@ const Hero = () => {
                   <div className="w-full aspect-square max-w-[18rem] sm:max-w-[22rem] md:max-w-[26rem] lg:max-w-[32.5rem] bg-primary/5 rounded-3xl animate-pulse" />
                 }
               >
-                <SplineScene />
+                {!isMobile && <SplineScene />}
               </Suspense>
             </div>
           </div>

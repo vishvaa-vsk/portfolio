@@ -40,13 +40,16 @@ const About = () => {
           <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-10 items-center">
             <div className="w-full md:w-4/12 max-w-[280px] sm:max-w-sm shrink-0 relative group/photo">
               <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-[#FFEAE5] dark:border-white/5 shadow-[0_12px_30px_rgba(255,113,81,0.10)] transform transition-transform duration-500 group-hover/photo:scale-[1.02]">
-                <img
-                  src="/Vishvaa.png"
-                  alt="Vishvaa K"
-                  className="w-full aspect-[3/4] object-cover transition-all duration-700"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <picture>
+                  <source srcSet="/Vishvaa.webp" type="image/webp" />
+                  <img
+                    src="/Vishvaa.png"
+                    alt="Vishvaa K"
+                    className="w-full aspect-[3/4] object-cover transition-all duration-700"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-primary/5 mix-blend-overlay pointer-events-none" />
               </div>
             </div>

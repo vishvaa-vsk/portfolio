@@ -2,6 +2,7 @@ import { useEffect, lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import Hero from "@/components/Hero";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Lazy loading sections that are below the fold (below the fold)
 const About = lazy(() => import("@/components/About"));
@@ -14,6 +15,7 @@ const Footer = lazy(() => import("@/components/Footer"));
 const StarBackground = lazy(() => import("@/components/StarBackground"));
 
 const Index = () => {
+  const isMobile = useIsMobile();
   useEffect(() => {
     // Ensure scroll resets to top on page reload
     if ('scrollRestoration' in window.history) {
@@ -25,7 +27,7 @@ const Index = () => {
   return (
     <div className="min-h-screen relative bg-white dark:bg-[#050505] text-foreground transition-colors duration-500">
       <Suspense fallback={<div className="fixed inset-0 bg-[#050505] pointer-events-none" />}>
-        <StarBackground />
+        {!isMobile && <StarBackground />}
       </Suspense>
       {/* Noise Texture - pointer-events-none for performance */}
       <div

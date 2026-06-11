@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -406,5 +405,17 @@
   .custom-cursor-active * {
     cursor: none !important;
   }
+}
+
+/* ── Content Containment for Off-Screen Sections (Performance Optimization) ── */
+#about, 
+#experience, 
+#tech-stack, 
+#projects, 
+#beyond-engineering, 
+#recognition, 
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
 }
 

@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useTheme } from "@/contexts/theme-provider";
+import { useIsMobile } from "@/hooks/use-mobile";
 interface StarsLayerProps {
   count: number;
   radius: number;
@@ -58,8 +59,12 @@ function StarsLayer({ count, radius, color, size }: StarsLayerProps) {
   );
 }
 
+
 export default function StarBackground() {
+  const isMobile = useIsMobile();
   const { theme } = useTheme();
+
+  if (isMobile) return null;
 
   // Check if it is light mode (directly or via system preference)
   const isLightMode = 
