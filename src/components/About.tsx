@@ -41,7 +41,7 @@ const About = () => {
             <div className="w-full md:w-4/12 max-w-[280px] sm:max-w-sm shrink-0 relative group/photo">
               <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-[#FFEAE5] dark:border-white/5 shadow-[0_12px_30px_rgba(255,113,81,0.10)] transform transition-transform duration-500 group-hover/photo:scale-[1.02]">
                 <img
-                  src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400&auto=format&fit=crop"
+                  src="/Vishvaa.png"
                   alt="Vishvaa K"
                   className="w-full aspect-[3/4] object-cover transition-all duration-700"
                   loading="lazy"
