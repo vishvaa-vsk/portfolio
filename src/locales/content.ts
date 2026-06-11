@@ -255,7 +255,7 @@ export const t = {
   beyond: {
     badge: "Beyond Engineering",
     title: "Community & Leadership",
-    role: "Tech Head",
+    role: "Technical Head",
     organization: "Youth Red Cross, Velammal Engineering College",
     period: "Sep 2025 - Present",
     missionTitle: "Tech-for-Good Leadership",
@@ -276,7 +276,7 @@ export const t = {
     ],
     stats: [
       { label: "Tenure", value: "Sep 2025 - Present" },
-      { label: "Role", value: "Tech Head" },
+      { label: "Role", value: "Technical Head" },
       { label: "Volunteers", value: "70+" }
     ]
   },
