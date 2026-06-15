@@ -1,0 +1,4 @@
+allowBuilds:
+  '@swc/core': false
+  '@tsparticles/engine': false
+  esbuild: false

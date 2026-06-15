@@ -14,7 +14,7 @@ import {
 
 const projectData = [
   {
-    image: "", // HarvestHub
+    image: "/harvesthub.jpg", // HarvestHub
     tags: [
       "Flutter",
       "Firebase",
@@ -28,7 +28,7 @@ const projectData = [
     live: "https://github.com/vishvaa-vsk/HarvestHub/releases/tag/v2.0.1",
   },
   {
-    image: "", // DBX
+    image: "/dbx-cloud.png", // DBX
     tags: [
       "Docker",
       "PostgreSQL",
@@ -42,7 +42,7 @@ const projectData = [
     live: "",
   },
   {
-    image: "", // Life Connect
+    image: "/lifeconnect.jpeg", // Life Connect
     tags: [
       "FastAPI",
       "MySQL",
@@ -145,21 +145,22 @@ const Projects = () => {
               >
                 <div className="h-44 sm:h-52 overflow-hidden relative shrink-0 bg-[#FFF5F2] dark:bg-black/20">
                   {data.image ? (
-                    project.title === "Engremaq-Web" ||
-                    project.title === "ANS Healthcare Analytics" ? (
+                    project.title.includes("DBX") ? (
+                      <div className="absolute inset-0 z-0 flex items-center justify-center p-4 bg-white/5 dark:bg-black/40">
+                        <img
+                          src={data.image}
+                          alt={project.title}
+                          className="max-w-full max-h-full object-contain relative z-0 drop-shadow-md transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                    ) : (
                       <div className="absolute inset-0 z-0">
                         <img
                           src={data.image}
                           alt={project.title}
-                          className="w-full h-full relative z-0 object-cover object-top scale-[1.0]"
+                          className="w-full h-full object-cover object-top relative z-0 transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
-                    ) : (
-                      <img
-                        src={data.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover object-top relative z-0"
-                      />
                     )
                   ) : (
                     <div className="w-full h-full bg-[#FFF5F2] dark:bg-card/30 flex items-center justify-center relative z-0">
