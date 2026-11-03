@@ -63,7 +63,7 @@ const Recognition = () => {
   return (
     <section
       id="recognition"
-      className="py-12 sm:py-14 md:py-16 relative overflow-hidden px-4 sm:px-6 border-t border-[#FFEAE5] dark:border-white/5 bg-transparent"
+      className="py-12 sm:py-14 md:py-16 relative overflow-hidden px-4 sm:px-6 border-t border-[#e2e8f0] dark:border-white/5 bg-transparent"
     >
       {/* Decorative gradient overlay */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none -z-10" />
@@ -76,7 +76,7 @@ const Recognition = () => {
       >
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-12 sm:mb-16 ml-1">
-          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(255,113,81,0.15)]">
+          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(99,102,241,0.15)]">
             <Award className="h-5 w-5 sm:h-6 sm:w-6 text-primary animate-pulse" />
           </div>
           <div>
@@ -105,13 +105,13 @@ const Recognition = () => {
               {t.recognition.achievements.map((item, idx) => (
                 <div
                   key={idx}
-                  className="group relative overflow-hidden rounded-2xl border border-[#FFEAE5] dark:border-white/10 bg-white/95 dark:bg-[#08070b]/90 backdrop-blur-xl p-5 sm:p-6 shadow-[0_8px_30px_rgba(255,113,81,0.04)] hover:shadow-[0_20px_50px_rgba(255,113,81,0.12)] hover:border-primary/30 dark:hover:bg-[#0d0c12] transition-all duration-500 hover:-translate-y-0.5"
+                  className="group relative overflow-hidden rounded-2xl border border-[#e2e8f0] dark:border-white/10 bg-white/95 dark:bg-[#0D1117]/90 backdrop-blur-xl p-5 sm:p-6 shadow-[0_8px_30px_rgba(99,102,241,0.04)] hover:shadow-[0_20px_50px_rgba(99,102,241,0.12)] hover:border-primary/30 dark:hover:bg-[#111622] transition-all duration-500 hover:-translate-y-0.5"
                 >
                   {/* Subtle top light effect */}
                   <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-[0_0_10px_rgba(255,113,81,0.1)] group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
+                    <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-[0_0_10px_rgba(99,102,241,0.1)] group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
                       {getAchievementIcon(item.title)}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -146,7 +146,7 @@ const Recognition = () => {
               {t.recognition.certifications.map((item, idx) => (
                 <div
                   key={idx}
-                  className="group relative overflow-hidden rounded-xl border border-[#FFEAE5] dark:border-white/10 bg-white/95 dark:bg-[#08070b]/90 backdrop-blur-xl p-4 shadow-[0_6px_20px_rgba(255,113,81,0.02)] hover:shadow-[0_15px_40px_rgba(255,113,81,0.08)] hover:border-primary/25 hover:bg-white dark:hover:bg-[#0c0b10] transition-all duration-500"
+                  className="group relative overflow-hidden rounded-xl border border-[#e2e8f0] dark:border-white/10 bg-white/95 dark:bg-[#0D1117]/90 backdrop-blur-xl p-4 shadow-[0_6px_20px_rgba(99,102,241,0.02)] hover:shadow-[0_15px_40px_rgba(99,102,241,0.08)] hover:border-primary/25 hover:bg-white dark:hover:bg-[#0c0b10] transition-all duration-500"
                 >
                   <div className="flex items-center gap-3.5">
                     <div className="p-2.5 rounded-lg bg-primary/10 border border-primary/20 shrink-0 group-hover:scale-105 group-hover:bg-primary/15 transition-all duration-300">

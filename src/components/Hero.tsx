@@ -1,15 +1,10 @@
-import { useState, useEffect, useMemo, memo, lazy, Suspense } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
 import { Button } from "@/components/ui/button";
 import { FileText, Github, Linkedin, Mail } from "lucide-react";
 import { t } from "@/locales/content";
-import { useIsMobile } from "@/hooks/use-mobile";
-import StarBackground from "./StarBackground";
-
-// Code Splitting: Spline is a heavy library, we isolate the loading to not block the initial page load.
-const SplineScene = lazy(() => import("./SplineScene"));
+import SystemArchitectureVisual from "./SystemArchitectureVisual";
 
 /* ─── Typewriter ─────────────────────────────────────────────────────────────── */
-// Memoized to prevent the entire Hero component from re-rendering on every typed character.
 const TypewriterLoop = memo(({ texts }: { texts: string[] }) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
@@ -51,12 +46,9 @@ TypewriterLoop.displayName = "TypewriterLoop";
 
 /* ─── Hero ───────────────────────────────────────────────────────────────────── */
 const Hero = () => {
-  const isMobile = useIsMobile();
-
   const links = useMemo(
     () => ({
-      curriculo:
-        "/Vishvaa_K_Resume.pdf",
+      curriculo: "/Vishvaa_K_Resume.pdf",
       github: t.contact.github,
       linkedin: t.contact.linkedin,
       email: `mailto:${t.contact.email}`,
@@ -75,14 +67,24 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden px-4 sm:px-6 bg-transparent">
-      {/* Background limpo - Apenas as estrelas globais aparecerão aqui */}
+      <div className="container relative z-10 pt-24 sm:pt-32 md:pt-36 lg:pt-20 pb-20 md:pb-12 flex flex-col justify-center min-h-screen">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center w-full mt-6 md:mt-0">
+          {/* ── LEFT COLUMN (Text & Actions) ── */}
+          <div className="lg:col-span-6 flex flex-col items-center text-center lg:items-start lg:text-left">
+            {/* System Status Dynamic Pill */}
+            <div
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-fade-up w-fit shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+              style={{ animationDelay: "0.02s" }}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span>Available for Backend / AI Roles</span>
+            </div>
 
-      <div className="container relative z-10 pt-24 sm:pt-32 md:pt-40 lg:pt-20 pb-24 md:pb-12 flex flex-col justify-center min-h-screen">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-4 items-center w-full mt-8 md:mt-0">
-          {/* ── COLUNA ESQUERDA (Textos) ── */}
-          <div className="flex flex-col items-center text-center md:items-start md:text-left">
             <h1
-              className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 sm:mb-6 animate-fade-up text-foreground"
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4 sm:mb-6 animate-fade-up text-foreground"
               style={{ animationDelay: "0.05s" }}
             >
               <span className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-normal text-slate-500 dark:text-slate-300 block mb-2 sm:mb-3">
@@ -92,24 +94,24 @@ const Hero = () => {
             </h1>
 
             <p
-              className="text-xl sm:text-2xl md:text-2xl font-medium text-foreground mb-4 animate-fade-up min-h-[1.75em] sm:min-h-[2em] flex items-center justify-center md:justify-start"
+              className="text-lg sm:text-xl md:text-2xl font-medium text-foreground mb-4 animate-fade-up min-h-[1.75em] sm:min-h-[2em] flex items-center justify-center lg:justify-start"
               style={{ animationDelay: "0.1s" }}
             >
               <TypewriterLoop texts={t.hero.roles} />
             </p>
 
             <p
-              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mb-8 sm:mb-10 animate-fade-up mx-auto md:mx-0 px-2 sm:px-0"
+              className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8 sm:mb-10 animate-fade-up mx-auto lg:mx-0 px-2 sm:px-0 leading-relaxed"
               style={{ animationDelay: "0.2s" }}
             >
               {t.hero.description}
             </p>
 
             <div
-              className="flex flex-col sm:flex-row items-center gap-4 animate-fade-up mx-auto md:mx-0 w-full sm:w-auto justify-center md:justify-start"
+              className="flex flex-col sm:flex-row items-center gap-4 animate-fade-up mx-auto lg:mx-0 w-full sm:w-auto justify-center lg:justify-start"
               style={{ animationDelay: "0.4s" }}
             >
-              {/* BOTÃO PRINCIPAL */}
+              {/* PRIMARY RESUME BUTTON */}
               <a
                 href={links.curriculo}
                 target="_blank"
@@ -118,14 +120,14 @@ const Hero = () => {
               >
                 <Button
                   size="lg"
-                  className="bg-primary text-primary-foreground hover:bg-primary/80 hover:brightness-110 active:scale-95 transition-all duration-300 group shadow-lg shadow-primary/25 w-full sm:w-auto text-base py-6 sm:py-4 rounded-xl"
+                  className="bg-primary text-white hover:bg-primary/90 hover:brightness-110 active:scale-95 transition-all duration-300 group shadow-lg shadow-primary/25 w-full sm:w-auto text-base py-6 sm:py-4 rounded-xl"
                 >
                   <FileText className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
                   {t.hero.resumeBtn}
                 </Button>
               </a>
 
-              {/* BOTÕES SOCIAIS */}
+              {/* SOCIAL BUTTONS */}
               <div className="flex gap-4 sm:gap-3 mt-4 sm:mt-0">
                 {socials.map((social, index) => (
                   <a
@@ -136,8 +138,8 @@ const Hero = () => {
                     aria-label={social.label}
                     className="
                       p-4 sm:p-3 rounded-xl sm:rounded-lg
-                      bg-black/5 dark:bg-background/50
-                      border border-black/10 dark:border-white/10
+                      bg-white/5 dark:bg-white/[0.03]
+                      border border-slate-200 dark:border-white/10
                       text-foreground
                       transition-all duration-300
                       hover:bg-slate-900 hover:text-primary hover:border-slate-800 hover:shadow-md
@@ -154,21 +156,12 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* ── COLUNA DIREITA: Spline 3D — Robô interativo ── */}
+          {/* ── RIGHT COLUMN: Interactive Backend Architecture Mesh ── */}
           <div
-            className="hidden md:flex items-center justify-center animate-fade-up relative"
-            style={{ animationDelay: "0.3s" }}
+            className="lg:col-span-6 w-full animate-fade-up relative mt-6 lg:mt-0"
+            style={{ animationDelay: "0.25s" }}
           >
-            <div className="w-full h-full flex items-center justify-center">
-              {/* Suspense com placeholder de baixo custo para evitar Layout Shift */}
-              <Suspense
-                fallback={
-                  <div className="w-full aspect-square max-w-[18rem] sm:max-w-[22rem] md:max-w-[26rem] lg:max-w-[32.5rem] bg-primary/5 rounded-3xl animate-pulse" />
-                }
-              >
-                {!isMobile && <SplineScene />}
-              </Suspense>
-            </div>
+            <SystemArchitectureVisual />
           </div>
         </div>
       </div>

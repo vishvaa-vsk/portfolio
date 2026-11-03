@@ -12,7 +12,7 @@ const BeyondEngineering = lazy(() => import("@/components/BeyondEngineering"));
 const Recognition = lazy(() => import("@/components/Recognition"));
 const TechStack = lazy(() => import("@/components/TechStack"));
 const Footer = lazy(() => import("@/components/Footer"));
-const StarBackground = lazy(() => import("@/components/StarBackground"));
+const GridBackground = lazy(() => import("@/components/GridBackground"));
 
 const Index = () => {
   const isMobile = useIsMobile();
@@ -25,9 +25,9 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen relative bg-white dark:bg-[#050505] text-foreground transition-colors duration-500">
-      <Suspense fallback={<div className="fixed inset-0 bg-[#050505] pointer-events-none" />}>
-        {!isMobile && <StarBackground />}
+    <div className="min-h-screen relative bg-[#F8FAFC] dark:bg-[#08090C] text-foreground transition-colors duration-500 font-sans">
+      <Suspense fallback={<div className="fixed inset-0 bg-[#08090C] pointer-events-none" />}>
+        <GridBackground />
       </Suspense>
       {/* Noise Texture - pointer-events-none for performance */}
       <div

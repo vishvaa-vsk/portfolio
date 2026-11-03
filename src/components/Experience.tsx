@@ -39,7 +39,7 @@ const Experience = () => {
         }`}
       >
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-10 sm:mb-16 ml-1">
-          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(255,113,81,0.15)]">
+          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(99,102,241,0.15)]">
             <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
           </div>
           <div>
@@ -63,17 +63,17 @@ const Experience = () => {
               </h3>
             </div>
 
-            <div className="relative border-l border-[#FFEAE5] dark:border-white/10 ml-2 sm:ml-4 space-y-8 sm:space-y-10">
+            <div className="relative border-l border-[#e2e8f0] dark:border-white/10 ml-2 sm:ml-4 space-y-8 sm:space-y-10">
               {t.experience.jobs.map((exp, index) => (
                 <div
                   key={index}
                   className="relative pl-6 sm:pl-8 md:pl-10 group"
                 >
-                  <div className="absolute -left-[6px] top-1 h-3 w-3 rounded-full bg-primary border border-primary shadow-[0_0_12px_rgba(255,113,81,0.45)] group-hover:scale-125 transition-transform duration-300" />
+                  <div className="absolute -left-[6px] top-1 h-3 w-3 rounded-full bg-primary border border-primary shadow-[0_0_12px_rgba(99,102,241,0.45)] group-hover:scale-125 transition-transform duration-300" />
 
-                  <div className="rounded-2xl bg-white/95 dark:bg-[#08070b]/90 backdrop-blur-xl border border-[#FFEAE5] dark:border-white/10 hover:border-primary/30 dark:hover:bg-[#0d0c12] transition-all duration-500 p-5 sm:p-6 shadow-[0_18px_50px_rgba(255,113,81,0.08)] hover:shadow-[0_24px_60px_rgba(255,113,81,0.14)]">
+                  <div className="rounded-2xl bg-white/95 dark:bg-[#0D1117]/90 backdrop-blur-xl border border-[#e2e8f0] dark:border-white/10 hover:border-primary/30 dark:hover:bg-[#111622] transition-all duration-500 p-5 sm:p-6 shadow-[0_18px_50px_rgba(99,102,241,0.08)] hover:shadow-[0_24px_60px_rgba(99,102,241,0.14)]">
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 w-fit h-fit shadow-[0_0_10px_rgba(255,113,81,0.15)] shrink-0">
+                      <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 w-fit h-fit shadow-[0_0_10px_rgba(99,102,241,0.15)] shrink-0">
                         {jobIcons[index]}
                       </div>
 
@@ -102,7 +102,7 @@ const Experience = () => {
                           {exp.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-3 py-1 rounded-full text-xs font-medium bg-[#FFF5F2] dark:bg-white/5 border border-[#FFEAE5] dark:border-white/10 text-slate-600 dark:text-muted-foreground hover:bg-primary/10 hover:border-primary/40 hover:text-primary dark:hover:bg-primary/20 dark:hover:border-primary/50 dark:hover:text-primary transition-all duration-300 cursor-default hover:shadow-[0_0_12px_rgba(255,113,81,0.25)] hover:-translate-y-0.5"
+                              className="px-3 py-1 rounded-full text-xs font-medium bg-[#f1f5f9] dark:bg-white/5 border border-[#e2e8f0] dark:border-white/10 text-slate-600 dark:text-muted-foreground hover:bg-primary/10 hover:border-primary/40 hover:text-primary dark:hover:bg-primary/20 dark:hover:border-primary/50 dark:hover:text-primary transition-all duration-300 cursor-default hover:shadow-[0_0_12px_rgba(99,102,241,0.25)] hover:-translate-y-0.5"
                             >
                               {tag}
                             </span>
@@ -130,7 +130,7 @@ const Experience = () => {
               {t.experience.education.map((item, index) => (
                 <div
                   key={index}
-                  className="group rounded-2xl border border-[#FFEAE5] dark:border-white/10 bg-white/95 dark:bg-[#08070b]/90 backdrop-blur-xl hover:border-primary/30 dark:hover:bg-[#0d0c12] transition-all duration-500 p-5 sm:p-6 shadow-[0_18px_50px_rgba(255,113,81,0.08)] hover:shadow-[0_24px_60px_rgba(255,113,81,0.14)]"
+                  className="group rounded-2xl border border-[#e2e8f0] dark:border-white/10 bg-white/95 dark:bg-[#0D1117]/90 backdrop-blur-xl hover:border-primary/30 dark:hover:bg-[#111622] transition-all duration-500 p-5 sm:p-6 shadow-[0_18px_50px_rgba(99,102,241,0.08)] hover:shadow-[0_24px_60px_rgba(99,102,241,0.14)]"
                 >
                   <div className="flex items-start gap-4">
                     <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0">

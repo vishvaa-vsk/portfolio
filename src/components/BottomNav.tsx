@@ -73,7 +73,7 @@ const MobileTopNav = () => {
         fixed top-0 left-0 right-0 z-50 md:hidden
         transition-all duration-300 px-4 pt-3 pb-2
         ${isScrolled
-          ? "bg-white/75 dark:bg-background/80 backdrop-blur-xl border-b border-[#FFEAE5] dark:border-white/10 shadow-sm"
+          ? "bg-white/75 dark:bg-background/80 backdrop-blur-xl border-b border-[#e2e8f0] dark:border-white/10 shadow-sm"
           : "bg-transparent"
         }
       `}
@@ -86,7 +86,7 @@ const MobileTopNav = () => {
           onClick={(e) => { e.preventDefault(); scrollTo("top"); }}
           className="flex items-center gap-2 group"
         >
-          <div className="flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-primary/15 to-[#FFEAE5] dark:from-primary/10 dark:to-transparent border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
+          <div className="flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-primary/15 to-[#e2e8f0] dark:from-primary/10 dark:to-transparent border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
             <TerminalIcon className="h-4 w-4 text-primary" />
           </div>
           <span className="font-bold text-base tracking-tight text-slate-900 dark:text-foreground group-hover:text-primary transition-colors">
@@ -102,7 +102,7 @@ const MobileTopNav = () => {
             border transition-all duration-200 active:scale-90
             ${isExpanded
               ? "bg-primary/10 border-primary/30 text-primary"
-              : "border-[#FFEAE5] dark:border-white/10 bg-[#FFF5F2] dark:bg-white/5 text-slate-600 dark:text-white/60 hover:text-primary dark:hover:text-white/90"
+              : "border-[#e2e8f0] dark:border-white/10 bg-[#f1f5f9] dark:bg-white/5 text-slate-600 dark:text-white/60 hover:text-primary dark:hover:text-white/90"
             }
           `}
         >
@@ -118,11 +118,11 @@ const MobileTopNav = () => {
         `}
       >
         <div className="
-          bg-white/95 dark:bg-[#0F0E15]/95 backdrop-blur-xl
-          border border-[#FFEAE5] dark:border-white/10
+          bg-white/95 dark:bg-[#0D1117]/95 backdrop-blur-xl
+          border border-[#e2e8f0] dark:border-white/10
           rounded-xl
           p-3
-          shadow-[0_20px_60px_-15px_rgba(255,113,81,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]
+          shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]
         ">
           {/* Grid de navegação */}
           <div className="grid grid-cols-3 gap-1 mb-2">
@@ -155,13 +155,13 @@ const MobileTopNav = () => {
           </div>
 
           {/* Divisor */}
-          <div className="h-px bg-[#FFEAE5] dark:bg-white/[0.07] my-3" />
+          <div className="h-px bg-[#e2e8f0] dark:bg-white/[0.07] my-3" />
 
           {/* Tema + Idioma */}
           <div className="flex gap-2">
             <button
               onClick={toggleTheme}
-              className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg border border-[#FFEAE5] dark:border-white/10 bg-[#FFF5F2] dark:bg-white/[0.03] text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-primary/5 hover:border-primary/20 active:scale-95 transition-all duration-200 text-xs font-medium shadow-sm"
+              className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg border border-[#e2e8f0] dark:border-white/10 bg-[#f1f5f9] dark:bg-white/[0.03] text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-primary/5 hover:border-primary/20 active:scale-95 transition-all duration-200 text-xs font-medium shadow-sm"
             >
               {theme === "dark" ? <Sun className="h-4 w-4 text-slate-400" /> : <Moon className="h-4 w-4 text-slate-500" />}
               <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>

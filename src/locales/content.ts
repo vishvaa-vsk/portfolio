@@ -20,25 +20,31 @@ export const t = {
     resumeBtn: "View Resume"
   },
   about: {
-    badge: "About me",
-    title: "Who I am",
-    subtitle: "Building Intelligent Software with Purpose",
-
-    p1_1: "I'm Vishvaa, a pre-final year engineering student passionate about building systems that are not only functional but also scalable and reliable. I enjoy creating software designed with real users in mind through ",
-    p1_hi1: "thoughtful architecture and clean code",
-    p1_2: ", focusing on backend development, robust APIs, and maintainable solutions that stand the test of scale.",
-    p1_hi2: "",
-    p1_3: "",
-    p1_hi3: "",
-    p1_4: "",
-
-    p2_1: "Over the years, I've worked on projects ranging from full-stack applications to solutions powered by ",
-    p2_hi1: "AI systems and cloud technologies",
-    p2_2: ", exploring domains like agriculture, education and productivity. From integrating LLM workflows to optimizing application performance, I enjoy transforming ideas into products that create meaningful impact.",
-
-    p3_1: "As I continue exploring software engineering, I'm especially excited about ",
-    p3_hi1: "backend systems, cloud infrastructure, and the intersection of AI with modern applications",
-    p3_2: ", constantly learning and building software that is practical, impactful, and ready for real-world use."
+    badge: "ABOUT ME",
+    title: "Who I Am",
+    subtitle: "Building Software, One Layer at a Time.",
+    p1: "I'm Vishvaa, a Computer Science engineering student who enjoys building software and understanding what makes it work under the hood.",
+    p2: "My interests lie in backend engineering, system design, and the practical application of AI. I've worked on backend services, asynchronous processing systems, and AI-powered applications, exploring everything from designing APIs and managing data to integrating LLMs into real-world workflows.",
+    p3: "I particularly enjoy working at the intersection of backend systems and AI — where good engineering matters just as much as the intelligence of the model. Whether it's building reliable services, improving how applications handle concurrent workloads, or experimenting with agentic workflows, I'm always curious about how things work beneath the surface.",
+    pillars: [
+      {
+        title: "Backend Engineering",
+        description: "Building APIs, designing backend architectures, and working with databases and asynchronous systems.",
+        badge: "FastAPI · Redis · PostgreSQL",
+      },
+      {
+        title: "AI Engineering",
+        description: "Integrating LLMs into applications, experimenting with RAG pipelines, and building agentic workflows.",
+        badge: "LangChain · Azure OpenAI · pgvector",
+      },
+      {
+        title: "Systems & Infrastructure",
+        description: "Exploring performance, deployment, reliability, and the infrastructure behind production software.",
+        badge: "Docker · AWS · CI/CD",
+      },
+    ],
+    exploringLabel: "CURRENTLY EXPLORING",
+    exploringContent: "Distributed Systems · Agentic AI · System Design",
   },
   experience: {
     badge: "Trajectory",

@@ -31,7 +31,7 @@ const BeyondEngineering = () => {
       >
         {/* Section Title */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-10 sm:mb-16 ml-1">
-          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(255,113,81,0.15)]">
+          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(99,102,241,0.15)]">
             <HeartHandshake className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
           </div>
           <div>
@@ -48,10 +48,10 @@ const BeyondEngineering = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           
           {/* Left Column: Role & Narrative */}
-          <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-white/95 dark:bg-[#08070b]/90 backdrop-blur-xl border border-[#FFEAE5] dark:border-white/10 p-6 sm:p-8 shadow-[0_18px_50px_rgba(255,113,81,0.08)] transition-all duration-500 hover:border-primary/25 hover:shadow-[0_22px_60px_rgba(255,113,81,0.14)]">
+          <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-white/95 dark:bg-[#0D1117]/90 backdrop-blur-xl border border-[#e2e8f0] dark:border-white/10 p-6 sm:p-8 shadow-[0_18px_50px_rgba(99,102,241,0.08)] transition-all duration-500 hover:border-primary/25 hover:shadow-[0_22px_60px_rgba(99,102,241,0.14)]">
             <div>
               <div className="flex items-center gap-3.5 mb-6">
-                <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-[0_0_10px_rgba(255,113,81,0.15)]">
+                <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-[0_0_10px_rgba(99,102,241,0.15)]">
                   <Award className="h-6 w-6 text-primary" />
                 </div>
                 <div>
@@ -79,7 +79,7 @@ const BeyondEngineering = () => {
             </div>
 
             {/* Metrics Dashboard */}
-            <div className="grid grid-cols-3 gap-4 border-t border-[#FFEAE5] dark:border-white/10 pt-6">
+            <div className="grid grid-cols-3 gap-4 border-t border-[#e2e8f0] dark:border-white/10 pt-6">
               {t.beyond.stats.map((stat, idx) => (
                 <div key={idx} className="flex flex-col text-center">
                   <span className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1 block">
@@ -98,10 +98,10 @@ const BeyondEngineering = () => {
             {t.beyond.pillars.map((pillar, index) => (
               <div
                 key={index}
-                className="group rounded-2xl border border-[#FFEAE5] dark:border-white/10 bg-white/95 dark:bg-[#08070b]/90 backdrop-blur-xl hover:border-primary/30 dark:hover:bg-[#0d0c12] transition-all duration-500 p-5 sm:p-6 shadow-[0_18px_50px_rgba(255,113,81,0.08)] hover:shadow-[0_24px_60px_rgba(255,113,81,0.14)]"
+                className="group rounded-2xl border border-[#e2e8f0] dark:border-white/10 bg-white/95 dark:bg-[#0D1117]/90 backdrop-blur-xl hover:border-primary/30 dark:hover:bg-[#111622] transition-all duration-500 p-5 sm:p-6 shadow-[0_18px_50px_rgba(99,102,241,0.08)] hover:shadow-[0_24px_60px_rgba(99,102,241,0.14)]"
               >
                 <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-[0_0_10px_rgba(255,113,81,0.15)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-[0_0_10px_rgba(99,102,241,0.15)] group-hover:scale-110 transition-transform duration-300">
                     {pillarIcons[index]}
                   </div>
                   <div className="flex-1 min-w-0">

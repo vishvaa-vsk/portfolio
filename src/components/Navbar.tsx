@@ -84,7 +84,7 @@ const Navbar = () => {
     <nav
       className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-6 ${
         isScrolled
-          ? "bg-white/75 dark:bg-background/80 backdrop-blur-xl border-b border-[#FFEAE5] dark:border-white/10 py-3 sm:py-4 shadow-sm"
+          ? "bg-white/75 dark:bg-background/80 backdrop-blur-xl border-b border-[rgba(226,232,240,0.8)] dark:border-white/10 py-3 sm:py-4 shadow-sm"
           : "bg-transparent py-4 sm:py-6"
       }`}
     >
@@ -100,7 +100,7 @@ const Navbar = () => {
           <div
             className="
               flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl
-              bg-gradient-to-br from-primary/15 to-[#FFEAE5] dark:from-primary/10 dark:to-transparent
+              bg-gradient-to-br from-primary/15 to-[rgba(226,232,240,0.8)] dark:from-primary/10 dark:to-transparent
               border border-primary/20
               group-hover:border-primary/40
               transition-all duration-300
@@ -143,7 +143,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2.5">
-            <div className="flex items-center gap-1 rounded-xl border border-[#FFEAE5] dark:border-white/10 bg-white/80 dark:bg-white/[0.03] px-1.5 py-1 backdrop-blur-sm shadow-sm">
+            <div className="flex items-center gap-1 rounded-xl border border-[rgba(226,232,240,0.8)] dark:border-white/10 bg-white/80 dark:bg-white/[0.03] px-1.5 py-1 backdrop-blur-sm shadow-sm">
               <button
                 onClick={toggleTheme}
                 className="
@@ -190,7 +190,7 @@ const Navbar = () => {
 
           <SheetContent
             side="right"
-            className="w-[280px] bg-white/95 dark:bg-background/95 backdrop-blur-xl border-[#FFEAE5] dark:border-white/10"
+            className="w-[280px] bg-white/95 dark:bg-background/95 backdrop-blur-xl border-[rgba(226,232,240,0.8)] dark:border-white/10"
           >
             <SheetHeader>
               <SheetTitle className="text-left flex items-center justify-between gap-2">
@@ -219,14 +219,14 @@ const Navbar = () => {
                 </button>
               ))}
 
-              <div className="h-px bg-[#FFEAE5] dark:bg-white/10 my-2" />
+              <div className="h-px bg-[rgba(226,232,240,0.8)] dark:bg-white/10 my-2" />
 
               <div className="flex items-center gap-3 py-2">
                 <button
                   onClick={toggleTheme}
                   className="
                     flex-1 flex items-center justify-center gap-2 h-10 rounded-xl
-                    border border-[#FFEAE5] dark:border-white/10
+                    border border-[rgba(226,232,240,0.8)] dark:border-white/10
                     bg-white dark:bg-white/[0.03]
                     text-muted-foreground
                     hover:text-primary hover:bg-primary/5
