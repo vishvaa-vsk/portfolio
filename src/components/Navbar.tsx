@@ -84,7 +84,7 @@ const Navbar = () => {
     <nav
       className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-6 ${
         isScrolled
-          ? "bg-white/75 dark:bg-background/80 backdrop-blur-xl border-b border-[#FFEAE5] dark:border-white/10 py-3 sm:py-4 shadow-sm"
+          ? "bg-[var(--bg-primary)]/85 backdrop-blur-xl border-b border-[var(--border-primary)] py-3 sm:py-4 shadow-sm"
           : "bg-transparent py-4 sm:py-6"
       }`}
     >
@@ -100,7 +100,7 @@ const Navbar = () => {
           <div
             className="
               flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl
-              bg-gradient-to-br from-primary/15 to-[#FFEAE5] dark:from-primary/10 dark:to-transparent
+              bg-gradient-to-br from-primary/15 to-[rgba(226,232,240,0.8)] dark:from-primary/10 dark:to-transparent
               border border-primary/20
               group-hover:border-primary/40
               transition-all duration-300
@@ -109,7 +109,7 @@ const Navbar = () => {
             <TerminalIcon className="h-4 w-4 sm:h-6 sm:w-6 text-primary" />
           </div>
 
-          <span className="font-bold text-base sm:text-xl tracking-tight group-hover:text-primary transition-colors text-slate-900 dark:text-foreground">
+          <span className="font-bold text-base sm:text-xl tracking-tight group-hover:text-primary transition-colors text-[var(--text-primary)]">
             Vishvaa K
           </span>
         </a>
@@ -125,7 +125,7 @@ const Navbar = () => {
                   ${
                     activeSection === link.id
                       ? "text-primary dark:text-primary"
-                      : "text-slate-600 dark:text-muted-foreground hover:text-primary dark:hover:text-primary"
+                      : "text-[var(--text-secondary)] hover:text-primary dark:hover:text-primary"
                   }
                   transition-colors duration-300
                   group/link
@@ -143,7 +143,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2.5">
-            <div className="flex items-center gap-1 rounded-xl border border-[#FFEAE5] dark:border-white/10 bg-white/80 dark:bg-white/[0.03] px-1.5 py-1 backdrop-blur-sm shadow-sm">
+            <div className="flex items-center rounded-xl border border-[var(--border-primary)] bg-[var(--bg-secondary)]/80 p-1 backdrop-blur-sm shadow-sm">
               <button
                 onClick={toggleTheme}
                 className="
@@ -153,7 +153,7 @@ const Navbar = () => {
                   dark:hover:text-primary dark:hover:bg-white/5
                   transition-all duration-300
                 "
-                title="Toggle theme"
+                title="Toggle theme mode"
                 type="button"
               >
                 {theme === "dark" ? (
@@ -190,12 +190,12 @@ const Navbar = () => {
 
           <SheetContent
             side="right"
-            className="w-[280px] bg-white/95 dark:bg-background/95 backdrop-blur-xl border-[#FFEAE5] dark:border-white/10"
+            className="w-[280px] bg-white/95 dark:bg-[#171C23]/95 backdrop-blur-xl border-[#E3DED6] dark:border-[#2A333E]"
           >
             <SheetHeader>
               <SheetTitle className="text-left flex items-center justify-between gap-2">
-                <div className="flex items-center gap-3 text-slate-900 dark:text-foreground">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/5 border border-primary/20">
+                <div className="flex items-center gap-3 text-[#20242A] dark:text-[#F5F2EC]">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 border border-primary/20">
                     <TerminalIcon className="h-4 w-4 text-primary" />
                   </div>
                   Menu
@@ -210,8 +210,8 @@ const Navbar = () => {
                   onClick={() => scrollToSection(link.id)}
                   className={`
                     text-base font-medium text-left py-2 px-2 rounded-lg
-                    ${activeSection === link.id ? "text-primary bg-primary/5" : "text-slate-600 dark:text-muted-foreground"}
-                    hover:text-primary dark:hover:text-primary active:bg-primary/10 active:scale-[0.98]
+                    ${activeSection === link.id ? "text-primary bg-primary/10" : "text-[#535D68] dark:text-[#B8C1CC]"}
+                    hover:text-primary dark:hover:text-primary active:bg-primary/15 active:scale-[0.98]
                     transition-all duration-300
                   `}
                 >
@@ -219,18 +219,18 @@ const Navbar = () => {
                 </button>
               ))}
 
-              <div className="h-px bg-[#FFEAE5] dark:bg-white/10 my-2" />
+              <div className="h-px bg-[#E3DED6] dark:bg-[#2A333E] my-2" />
 
               <div className="flex items-center gap-3 py-2">
                 <button
                   onClick={toggleTheme}
                   className="
                     flex-1 flex items-center justify-center gap-2 h-10 rounded-xl
-                    border border-[#FFEAE5] dark:border-white/10
-                    bg-white dark:bg-white/[0.03]
-                    text-muted-foreground
+                    border border-[#E3DED6] dark:border-[#2A333E]
+                    bg-white dark:bg-[#202731]
+                    text-[#535D68] dark:text-[#B8C1CC]
                     hover:text-primary hover:bg-primary/5
-                    dark:hover:text-primary dark:hover:bg-white/5
+                    dark:hover:text-primary dark:hover:bg-[#2A333E]
                     active:scale-95
                     transition-all duration-300 shadow-sm
                   "

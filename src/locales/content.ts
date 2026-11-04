@@ -13,32 +13,36 @@ export const t = {
     roles: [
       "Software Engineer",
       "Backend Engineer",
-      "AI Systems Engineer",
-      "Full Stack Developer"
+      "AI Systems Developer"
     ],
     description: "Building intelligent software at the intersection of backend engineering and AI. From scalable APIs to LLM-powered applications, I enjoy transforming ideas into products that people can actually use.",
     resumeBtn: "View Resume"
   },
   about: {
-    badge: "About me",
-    title: "Who I am",
-    subtitle: "Building Intelligent Software with Purpose",
-
-    p1_1: "I'm Vishvaa, a pre-final year engineering student passionate about building systems that are not only functional but also scalable and reliable. I enjoy creating software designed with real users in mind through ",
-    p1_hi1: "thoughtful architecture and clean code",
-    p1_2: ", focusing on backend development, robust APIs, and maintainable solutions that stand the test of scale.",
-    p1_hi2: "",
-    p1_3: "",
-    p1_hi3: "",
-    p1_4: "",
-
-    p2_1: "Over the years, I've worked on projects ranging from full-stack applications to solutions powered by ",
-    p2_hi1: "AI systems and cloud technologies",
-    p2_2: ", exploring domains like agriculture, education and productivity. From integrating LLM workflows to optimizing application performance, I enjoy transforming ideas into products that create meaningful impact.",
-
-    p3_1: "As I continue exploring software engineering, I'm especially excited about ",
-    p3_hi1: "backend systems, cloud infrastructure, and the intersection of AI with modern applications",
-    p3_2: ", constantly learning and building software that is practical, impactful, and ready for real-world use."
+    badge: "ABOUT ME",
+    title: "Who I Am",
+    subtitle: "I Build Software That Solves Real Problems.",
+    p1: "I'm Vishvaa, a Computer Science engineering student interested in backend engineering and AI. I enjoy building applications, designing APIs, and figuring out how to make software work reliably.",
+    p2: "I've worked across backend systems and AI-powered applications, and I'm particularly drawn to the engineering behind them — from handling data and concurrent workloads to putting LLMs to practical use.",
+    pillars: [
+      {
+        title: "Backend Engineering",
+        description: "Building APIs, designing backend architectures, and working with databases and asynchronous systems.",
+        badge: "FastAPI · Redis · PostgreSQL",
+      },
+      {
+        title: "AI Engineering",
+        description: "Integrating LLMs into applications, experimenting with RAG pipelines, and building agentic workflows.",
+        badge: "LangChain · Azure OpenAI · pgvector",
+      },
+      {
+        title: "Systems & Infrastructure",
+        description: "Exploring performance, deployment, reliability, and the infrastructure behind production software.",
+        badge: "Docker · AWS · CI/CD",
+      },
+    ],
+    exploringLabel: "CURRENTLY EXPLORING",
+    exploringContent: "Distributed Systems · Agentic AI · System Design",
   },
   experience: {
     badge: "Trajectory",
@@ -49,14 +53,14 @@ export const t = {
       {
         role: "Software Development Intern (Backend & AI Focus)",
         company: "Hexaware Technologies",
-        period: "Feb 2026 - Present",
+        period: "Feb 2026 - Jul 2026",
         description: "Built AI-powered assessment workflows using FastAPI, LangChain, and Azure OpenAI. Developed a CEFR grading engine, automated speaking evaluation, and improved scalability through Redis-based task queuing for concurrent sessions.",
         tags: ["Python", "FastAPI", "LangChain", "Azure OpenAI", "Redis", "PostgreSQL"]
       },
       {
         role: "Backend Engineer",
         company: "GameChanger4U",
-        period: "April 2026 - Present",
+        period: "April 2026 - Jun 2026",
         description: "As part of the core engineering team, I build and maintain the backend systems powering a SaaS platform for sports academies and gyms. I own the development of scalable APIs, database design, cloud deployments, and infrastructure decisions, ensuring reliable and secure production environments.",
         tags: ["Python", "FastAPI", "PostgreSQL", "AWS", "Docker", "Cloud Infra", "CI/CD"]
       },
@@ -181,7 +185,7 @@ export const t = {
         title: "Life Connect",
         description: "A social impact platform for managing blood donation requests, modernized with a scalable backend architecture to support future growth and reliability.",
         role: "Tech Head & Backend Engineer",
-        duration: "2025 - Present",
+        duration: "Sep 2025 - Aug 2026",
         team: "YRC Dev Team",
         caseStudy: {
           overview: "Life Connect is a blood donation management platform developed under the Youth Red Cross initiative to connect donors with urgent requests.",
@@ -233,22 +237,6 @@ export const t = {
           lessons: "This project taught me end-to-end product development and laid the foundation for my backend journey."
         }
       },
-      {
-        title: "Prism — Multi-Agent Code Review Platform",
-        description: "A GitHub-integrated code review platform that runs a multi-agent pipeline across pull requests - assigning specialized agents for security, logic, style, and performance analysis. Built to explore production-grade agent orchestration, async webhook processing, and RAG-powered context retrieval over codebases.",
-        role: "Backend Engineer",
-        duration: "Jun 2026 - Present",
-        team: "Solo Project",
-        caseStudy: null
-      },
-      {
-        title: "Kore — RAG-as-a-Service Platform",
-        description: "A multi-tenant document intelligence API that allows teams to upload document collections and query them via a clean REST interface. Designed around production concerns - tenant isolation at the database level, API key auth, rate limiting, hybrid semantic and keyword search, and embedding caching. Built to move RAG from demo to deployable infrastructure.",
-        role: "Backend Engineer",
-        duration: "Jun 2026 - Present",
-        team: "Solo Project",
-        caseStudy: null
-      },
     ]
   },
 
@@ -257,7 +245,7 @@ export const t = {
     title: "Community & Leadership",
     role: "Technical Head",
     organization: "Youth Red Cross, Velammal Engineering College",
-    period: "Sep 2025 - Present",
+    period: "Sep 2025 - Sep 2026",
     missionTitle: "Tech-for-Good Leadership",
     missionDesc: "Bridging the gap between software engineering and social empathy. Over the past 10 months, I have led the technical wing of YRC, focusing on building high-impact social projects, mentoring student developers, and encouraging a culture of tech-as-a-service.",
     pillars: [
@@ -275,7 +263,7 @@ export const t = {
       }
     ],
     stats: [
-      { label: "Tenure", value: "Sep 2025 - Present" },
+      { label: "Tenure", value: "Sep 2025 - Sep 2026" },
       { label: "Role", value: "Technical Head" },
       { label: "Volunteers", value: "70+" }
     ]

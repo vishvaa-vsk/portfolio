@@ -67,33 +67,6 @@ const projectData = [
     github: "https://github.com/vishvaa-vsk/LSRW-Skill-Assessment-Platform",
     live: "https://www.testeng.online",
   },
-  {
-    image: "", // Prism
-    tags: [
-      "Python",
-      "FastAPI",
-      "LangChain",
-      "GitHub APIs",
-      "Agent Orchestration",
-      "RAG"
-    ],
-    github: "https://github.com/vishvaa-vsk",
-    live: "",
-  },
-  {
-    image: "", // Kore
-    tags: [
-      "Python",
-      "FastAPI",
-      "PostgreSQL",
-      "Multi-Tenancy",
-      "RAG",
-      "Redis Caching",
-      "REST APIs"
-    ],
-    github: "https://github.com/vishvaa-vsk",
-    live: "",
-  },
 ];
 
 
@@ -117,7 +90,7 @@ const Projects = () => {
         }`}
       >
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-10 sm:mb-12 ml-1">
-          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(255,113,81,0.15)]">
+          <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20 shadow-[0_0_12px_rgba(217,139,82,0.12)]">
             <Rocket className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
           </div>
           <div>
@@ -138,32 +111,48 @@ const Projects = () => {
             return (
               <div
                 key={index}
-                className={`group rounded-xl border border-[#FFEAE5] dark:border-white/10 bg-white/92 dark:bg-card/20 backdrop-blur-md overflow-hidden hover:border-primary/35 hover:bg-white dark:hover:bg-card/30 transition-all duration-500 hover:-translate-y-2 flex flex-col min-h-[420px] shadow-[0_14px_36px_rgba(255,113,81,0.07)] hover:shadow-[0_20px_46px_rgba(255,113,81,0.16)] ${
+                className={`group rounded-xl border border-[var(--border-primary)] bg-[var(--bg-tertiary)] backdrop-blur-md overflow-hidden hover:border-primary/40 hover:bg-[var(--bg-elevated)] transition-all duration-500 hover:-translate-y-2 flex flex-col min-h-[420px] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)] ${
                   isVisible ? "animate-fade-up opacity-100" : "opacity-0"
                 }`}
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                <div className="h-44 sm:h-52 overflow-hidden relative shrink-0 bg-[#FFF5F2] dark:bg-black/20">
+                <div className="h-44 sm:h-52 overflow-hidden relative shrink-0 bg-[var(--bg-terminal)]">
                   {data.image ? (
                     project.title.includes("DBX") ? (
                       <div className="absolute inset-0 z-0 flex items-center justify-center p-4 bg-white/5 dark:bg-black/40">
-                        <img
-                          src={data.image}
-                          alt={project.title}
-                          className="max-w-full max-h-full object-contain relative z-0 drop-shadow-md transition-transform duration-500 group-hover:scale-105"
-                        />
+                        <picture className="max-w-full max-h-full flex items-center justify-center">
+                          <source
+                            srcSet={data.image.replace(/\.(png|jpg|jpeg)$/, ".webp")}
+                            type="image/webp"
+                          />
+                          <img
+                            src={data.image}
+                            alt={project.title}
+                            loading="lazy"
+                            decoding="async"
+                            className="max-w-full max-h-full object-contain relative z-0 drop-shadow-md transition-transform duration-500 group-hover:scale-105"
+                          />
+                        </picture>
                       </div>
                     ) : (
                       <div className="absolute inset-0 z-0">
-                        <img
-                          src={data.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover object-top relative z-0 transition-transform duration-700 group-hover:scale-105"
-                        />
+                        <picture className="w-full h-full block">
+                          <source
+                            srcSet={data.image.replace(/\.(png|jpg|jpeg)$/, ".webp")}
+                            type="image/webp"
+                          />
+                          <img
+                            src={data.image}
+                            alt={project.title}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover object-top relative z-0 transition-transform duration-700 group-hover:scale-105"
+                          />
+                        </picture>
                       </div>
                     )
                   ) : (
-                    <div className="w-full h-full bg-[#FFF5F2] dark:bg-card/30 flex items-center justify-center relative z-0">
+                    <div className="w-full h-full bg-[var(--bg-terminal)] flex items-center justify-center relative z-0">
                       <Folder className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground/50" />
                     </div>
                   )}
@@ -173,7 +162,7 @@ const Projects = () => {
                   {/* Ongoing project indicator badge */}
                   {!project.caseStudy && (
                     <div className="absolute top-3.5 right-3.5 z-30">
-                      <Badge className="bg-[#FFF5F2]/90 dark:bg-[#08070b]/90 text-primary border border-[#FFEAE5] dark:border-white/10 text-[9px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full shadow-sm select-none hover:bg-[#FFF5F2]/95 dark:hover:bg-[#08070b]/95">
+                      <Badge className="bg-[var(--bg-elevated)]/90 text-primary border border-[var(--border-primary)] text-[9px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full shadow-sm select-none hover:bg-[var(--bg-elevated)]">
                         Ongoing
                       </Badge>
                     </div>
@@ -181,21 +170,20 @@ const Projects = () => {
                 </div>
 
                 <div className="p-5 flex flex-col flex-grow relative z-20">
-                  <h3 className="text-lg font-bold mb-1.5 text-slate-900 dark:text-foreground group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-lg font-bold mb-1.5 text-[var(--text-primary)] group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </h3>
 
-                  <p className="text-slate-600 dark:text-muted-foreground text-sm mb-3.5 leading-relaxed break-words">
+                  <p className="text-[var(--text-secondary)] text-sm mb-3.5 leading-relaxed break-words">
                     {project.description}
                   </p>
-
 
                   <div className="flex flex-wrap gap-2 mb-4 mt-auto">
                     {data.tags.map((tag, tagIndex) => (
                       <Badge
                         key={tag}
                         variant="secondary"
-                        className={`px-3 py-1 rounded-full bg-[#FFF5F2] dark:bg-white/5 border border-[#FFEAE5] dark:border-white/10 text-slate-600 dark:text-muted-foreground text-[10px] sm:text-xs font-medium hover:bg-primary/10 hover:border-primary/40 hover:text-primary dark:hover:bg-primary/20 dark:hover:border-primary/50 dark:hover:text-primary transition-all duration-300 cursor-default hover:shadow-[0_0_12px_rgba(255,113,81,0.25)] hover:-translate-y-0.5 ${
+                        className={`px-3 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-primary)] text-[var(--text-secondary)] text-[10px] sm:text-xs font-medium hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all duration-300 cursor-default hover:shadow-sm hover:-translate-y-0.5 ${
                           isVisible
                             ? "animate-fade-in opacity-100"
                             : "opacity-0"
@@ -209,13 +197,13 @@ const Projects = () => {
                     ))}
                   </div>
 
-                  <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FFEAE5] dark:via-white/10 to-transparent mb-4" />
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-[var(--border-primary)] to-transparent mb-4" />
 
                   <div className="flex gap-3 pt-2 mt-auto">
                     {project.caseStudy ? (
                       <Button
                         onClick={() => setActiveProjectIndex(index)}
-                        className="flex-1 rounded-xl bg-primary text-white border border-primary/20 hover:bg-primary/90 hover:text-white hover:border-primary hover:shadow-[0_12px_30px_rgba(255,113,81,0.28)] transition-all duration-300 gap-2 h-10 text-sm font-medium"
+                        className="flex-1 rounded-xl bg-primary text-[var(--bg-primary)] font-semibold border border-primary/30 hover:bg-[var(--accent-hover)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 gap-2 h-10 text-sm"
                       >
                         <FileText size={16} />
                         Case Study
@@ -223,7 +211,7 @@ const Projects = () => {
                     ) : (
                       <Button
                         disabled
-                        className="flex-1 rounded-xl bg-[#FFF5F2]/50 dark:bg-white/5 text-slate-400 dark:text-slate-500 border border-[#FFEAE5] dark:border-white/5 cursor-not-allowed gap-2 h-10 text-sm font-medium opacity-75"
+                        className="flex-1 rounded-xl bg-[var(--bg-elevated)] text-[var(--text-disabled)] border border-[var(--border-primary)] cursor-not-allowed gap-2 h-10 text-sm font-medium opacity-75"
                       >
                         <FileText size={16} className="opacity-60" />
                         In Progress
@@ -239,7 +227,7 @@ const Projects = () => {
                       >
                         <Button
                           variant="outline"
-                          className="w-full rounded-xl border-[#FFEAE5] dark:border-white/10 bg-white dark:bg-transparent text-foreground dark:text-white shadow-sm hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-300 gap-2 h-10 text-sm font-medium"
+                          className="w-full rounded-xl border-[var(--border-primary)] bg-[var(--bg-elevated)] text-[var(--text-secondary)] shadow-sm hover:border-primary/40 hover:text-[var(--text-primary)] transition-all duration-300 gap-2 h-10 text-sm font-medium"
                         >
                           <ExternalLink
                             size={16}
@@ -257,7 +245,7 @@ const Projects = () => {
                       >
                         <Button
                           variant="outline"
-                          className="w-full rounded-xl border-[#FFEAE5] dark:border-white/10 bg-white dark:bg-transparent text-foreground dark:text-white shadow-sm hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-300 gap-2 h-10 text-sm font-medium"
+                          className="w-full rounded-xl border-[var(--border-primary)] bg-[var(--bg-elevated)] text-[var(--text-secondary)] shadow-sm hover:border-primary/40 hover:text-[var(--text-primary)] transition-all duration-300 gap-2 h-10 text-sm font-medium"
                         >
                           <Github
                             size={16}
@@ -281,11 +269,11 @@ const Projects = () => {
           if (!open) setActiveProjectIndex(null);
         }}
       >
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-white/90 dark:bg-[#08070b]/90 backdrop-blur-xl border-[#FFEAE5] dark:border-white/10 rounded-2xl shadow-2xl p-6 sm:p-8 text-slate-800 dark:text-slate-100">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-[var(--bg-secondary)] backdrop-blur-xl border-[var(--border-primary)] rounded-2xl shadow-2xl p-6 sm:p-8 text-[var(--text-primary)]">
           {activeProject && activeProject.caseStudy && (
             <>
-              <DialogHeader className="text-left border-b border-[#FFEAE5] dark:border-white/10 pb-4 mb-4">
-                <DialogTitle className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
+              <DialogHeader className="text-left border-b border-[var(--border-primary)] pb-4 mb-4">
+                <DialogTitle className="text-2xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-3xl flex items-center gap-2">
                   <span>{activeProject.title}</span>
                 </DialogTitle>
                 <DialogDescription className="text-sm text-primary font-medium tracking-wide uppercase mt-1">
@@ -295,32 +283,32 @@ const Projects = () => {
 
               <div className="space-y-6">
                 {/* Project Metadata Details */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-[#FFEAE5] dark:border-white/10 pb-5 text-slate-600 dark:text-muted-foreground">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-[var(--border-primary)] pb-5 text-[var(--text-secondary)]">
                   <div className="flex items-center gap-3">
-                    <div className="p-1.5 sm:p-2 rounded-lg bg-[#FFF5F2] dark:bg-white/5 border border-[#FFEAE5] dark:border-white/10 shrink-0">
+                    <div className="p-1.5 sm:p-2 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border-primary)] shrink-0">
                       <Briefcase className="h-4 w-4 text-primary" />
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <span className="text-[10px] uppercase tracking-wider text-muted-foreground/75 leading-none">Role</span>
-                      <span className="font-semibold text-slate-800 dark:text-slate-200 text-xs sm:text-sm mt-1">{activeProject.role}</span>
+                      <span className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] leading-none">Role</span>
+                      <span className="font-semibold text-[var(--text-primary)] text-xs sm:text-sm mt-1">{activeProject.role}</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 sm:border-x border-[#FFEAE5] dark:border-white/10 sm:px-4">
-                    <div className="p-1.5 sm:p-2 rounded-lg bg-[#FFF5F2] dark:bg-white/5 border border-[#FFEAE5] dark:border-white/10 shrink-0">
+                  <div className="flex items-center gap-3 sm:border-x border-[var(--border-primary)] sm:px-4">
+                    <div className="p-1.5 sm:p-2 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border-primary)] shrink-0">
                       <Calendar className="h-4 w-4 text-primary" />
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <span className="text-[10px] uppercase tracking-wider text-muted-foreground/75 leading-none">Duration</span>
-                      <span className="font-semibold text-slate-800 dark:text-slate-200 text-xs sm:text-sm mt-1">{activeProject.duration}</span>
+                      <span className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] leading-none">Duration</span>
+                      <span className="font-semibold text-[var(--text-primary)] text-xs sm:text-sm mt-1">{activeProject.duration}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 sm:pl-4">
-                    <div className="p-1.5 sm:p-2 rounded-lg bg-[#FFF5F2] dark:bg-white/5 border border-[#FFEAE5] dark:border-white/10 shrink-0">
+                    <div className="p-1.5 sm:p-2 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border-primary)] shrink-0">
                       <Users className="h-4 w-4 text-primary" />
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <span className="text-[10px] uppercase tracking-wider text-muted-foreground/75 leading-none">Team</span>
-                      <span className="font-semibold text-slate-800 dark:text-slate-200 text-xs sm:text-sm mt-1">{activeProject.team}</span>
+                      <span className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] leading-none">Team</span>
+                      <span className="font-semibold text-[var(--text-primary)] text-xs sm:text-sm mt-1">{activeProject.team}</span>
                     </div>
                   </div>
                 </div>
@@ -330,7 +318,7 @@ const Projects = () => {
                   <h4 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-2">
                     Overview
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                  <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
                     {activeProject.caseStudy.overview}
                   </p>
                 </div>
@@ -340,7 +328,7 @@ const Projects = () => {
                   <h4 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-2">
                     The Challenge
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                  <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
                     {activeProject.caseStudy.challenge}
                   </p>
                 </div>
@@ -350,7 +338,7 @@ const Projects = () => {
                   <h4 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-2">
                     My Contributions
                   </h4>
-                  <ul className="list-disc pl-5 text-slate-600 dark:text-slate-300 text-sm space-y-1.5 leading-relaxed">
+                  <ul className="list-disc pl-5 text-[var(--text-secondary)] text-sm space-y-1.5 leading-relaxed">
                     {activeProject.caseStudy.contributions.map((contribution, idx) => (
                       <li key={idx}>{contribution}</li>
                     ))}
@@ -367,7 +355,7 @@ const Projects = () => {
                       <Badge
                         key={idx}
                         variant="secondary"
-                        className="px-3 py-1 rounded-full bg-[#FFF5F2] dark:bg-white/5 border border-[#FFEAE5] dark:border-white/10 text-slate-600 dark:text-muted-foreground text-xs font-medium cursor-default"
+                        className="px-3 py-1 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border-primary)] text-[var(--text-secondary)] text-xs font-medium cursor-default"
                       >
                         {highlight}
                       </Badge>
@@ -380,7 +368,7 @@ const Projects = () => {
                   <h4 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-2">
                     Impact & Results
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                  <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
                     {activeProject.caseStudy.impact}
                   </p>
                 </div>
@@ -390,14 +378,14 @@ const Projects = () => {
                   <h4 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-2">
                     Lessons Learned
                   </h4>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                  <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
                     {activeProject.caseStudy.lessons}
                   </p>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-4 pt-6 border-t border-[#FFEAE5] dark:border-white/10 mt-8">
+              <div className="flex gap-4 pt-6 border-t border-[var(--border-primary)] mt-8">
                 {activeProjectData && activeProjectData.github && (
                   <a
                     href={activeProjectData.github}
@@ -407,7 +395,7 @@ const Projects = () => {
                   >
                     <Button
                       variant="outline"
-                      className="w-full rounded-xl border-[#FFEAE5] dark:border-white/10 bg-white dark:bg-transparent text-foreground dark:text-white shadow-sm hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-300 gap-2 h-10 text-sm font-medium"
+                      className="w-full rounded-xl border-[var(--border-primary)] bg-[var(--bg-elevated)] text-[var(--text-primary)] shadow-sm hover:border-primary/40 transition-all duration-300 gap-2 h-10 text-sm font-medium"
                     >
                       <Github size={16} className="opacity-90 group-hover/btn:-translate-y-[1px]" />
                       GitHub
@@ -422,7 +410,7 @@ const Projects = () => {
                     rel="noreferrer"
                     className="flex-1 group/btn"
                   >
-                    <Button className="w-full rounded-xl bg-primary text-white border border-primary/20 hover:bg-primary/90 hover:text-white hover:border-primary hover:shadow-[0_12px_30px_rgba(255,113,81,0.28)] transition-all duration-300 gap-2 h-10 text-sm font-medium">
+                    <Button className="w-full rounded-xl bg-primary text-[var(--bg-primary)] font-semibold border border-primary/20 hover:bg-[var(--accent-hover)] hover:shadow-[var(--shadow-glow)] transition-all duration-300 gap-2 h-10 text-sm font-medium">
                       <ExternalLink size={16} className="opacity-90 group-hover/btn:-translate-y-[1px] group-hover/btn:translate-x-[1px]" />
                       Live Demo
                     </Button>
