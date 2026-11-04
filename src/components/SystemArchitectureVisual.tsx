@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef, memo, useCallback } from "react";
+import { useState, useEffect, useRef, memo, useCallback, useMemo } from "react";
 import {
   Terminal as TerminalIcon,
   Play,
   RotateCw,
   Zap,
 } from "lucide-react";
+import { useTheme } from "@/contexts/theme-provider";
+import type { NodeColorTheme } from "@/config/themes";
 
 /* ─── Custom Sharp Infrastructure SVG Line Icons ──────────────────────────── */
 
@@ -33,30 +35,27 @@ const OrchestratorIcon = ({ className = "w-4 h-4" }: { className?: string }) => 
   </svg>
 );
 
-// Vector Store: Multi-dimensional node net / embedding manifold
+// Vector DB: Multidimensional graph lattice node
 const VectorNetIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <circle cx="6" cy="6" r="2.5" />
     <circle cx="18" cy="6" r="2.5" />
-    <circle cx="12" cy="12" r="2.5" />
     <circle cx="6" cy="18" r="2.5" />
     <circle cx="18" cy="18" r="2.5" />
-    <line x1="8" y1="7" x2="10.5" y2="10.5" />
-    <line x1="16" y1="7" x2="13.5" y2="10.5" />
-    <line x1="8" y1="17" x2="10.5" y2="13.5" />
-    <line x1="16" y1="17" x2="13.5" y2="13.5" />
-    <line x1="6" y1="8.5" x2="6" y2="15.5" strokeDasharray="2 2" />
-    <line x1="18" y1="8.5" x2="18" y2="15.5" strokeDasharray="2 2" />
+    <line x1="8.5" y1="6" x2="15.5" y2="6" />
+    <line x1="6" y1="8.5" x2="6" y2="15.5" />
+    <line x1="8.5" y1="18" x2="15.5" y2="18" />
+    <line x1="18" y1="8.5" x2="18" y2="15.5" />
+    <line x1="7.7" y1="7.7" x2="16.3" y2="16.3" strokeDasharray="2 2" />
   </svg>
 );
 
-// Database Cluster: Stacked cylindrical disk array with sync links
+// Postgres: Industrial ACID disk stack
 const DatabaseClusterIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <ellipse cx="12" cy="5" rx="9" ry="3" />
     <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
     <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-    <line x1="12" y1="8" x2="12" y2="12" strokeDasharray="1 1" />
   </svg>
 );
 
@@ -77,7 +76,7 @@ const LLMStreamIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
 
 /* ─── Node & Graph Definitions (Clean 3-Column x 2-Tier Topology) ─────────── */
 
-interface NodeItem {
+export interface NodeItem {
   id: string;
   name: string;
   tag: string;
@@ -90,144 +89,15 @@ interface NodeItem {
     p99: string;
     mem: string;
   };
-  colorTheme: {
-    base: string;
-    border: string;
-    glow: string;
-    accent: string;
-    badge: string;
-  };
+  colorTheme: NodeColorTheme;
 }
 
-// Fixed-column positioning prevents horizontal collision:
-// Col 1 (x: 18%) | Col 2 (x: 50%) | Col 3 (x: 82%)
-// Tier 1 (y: 25%) | Tier 2 (y: 67%)
-const NODES: NodeItem[] = [
-  {
-    id: "gateway",
-    name: "API Ingress",
-    tag: "FastAPI",
-    type: "gateway",
-    icon: GatewayIcon,
-    x: 18,
-    y: 25,
-    stats: { qps: 142, p99: "14ms", mem: "38MB" },
-    colorTheme: {
-      base: "bg-[#11141B]",
-      border: "border-slate-500/40 hover:border-slate-400",
-      glow: "shadow-[0_0_15px_rgba(138,153,173,0.15)]",
-      accent: "text-[#8A99AD]",
-      badge: "bg-[#8A99AD]/10 text-[#8A99AD] border-[#8A99AD]/30",
-    },
-  },
-  {
-    id: "orchestrator",
-    name: "Agent Orchestrator",
-    tag: "LangChain",
-    type: "orchestrator",
-    icon: OrchestratorIcon,
-    x: 50,
-    y: 25,
-    stats: { qps: 84, p99: "22ms", mem: "64MB" },
-    colorTheme: {
-      base: "bg-[#16120F]",
-      border: "border-orange-500/50 hover:border-orange-400",
-      glow: "shadow-[0_0_24px_rgba(249,115,22,0.3)]",
-      accent: "text-[#F97316]",
-      badge: "bg-orange-500/10 text-[#F97316] border-orange-500/30",
-    },
-  },
-  {
-    id: "llm",
-    name: "LLM Inference",
-    tag: "Azure OpenAI",
-    type: "inference",
-    icon: LLMStreamIcon,
-    x: 82,
-    y: 25,
-    stats: { qps: 42, p99: "48ms", mem: "128MB" },
-    colorTheme: {
-      base: "bg-[#0E151A]",
-      border: "border-cyan-500/40 hover:border-cyan-300",
-      glow: "shadow-[0_0_18px_rgba(6,182,212,0.25)]",
-      accent: "text-[#06B6D4]",
-      badge: "bg-cyan-500/10 text-[#06B6D4] border-cyan-500/30",
-    },
-  },
-  {
-    id: "redis",
-    name: "Broker & Cache",
-    tag: "Redis 7.2",
-    type: "cache",
-    icon: RedisBoltIcon,
-    x: 18,
-    y: 67,
-    stats: { qps: 310, p99: "0.4ms", mem: "24MB" },
-    colorTheme: {
-      base: "bg-[#18130B]",
-      border: "border-amber-500/40 hover:border-amber-400",
-      glow: "shadow-[0_0_18px_rgba(245,158,11,0.25)]",
-      accent: "text-[#F59E0B]",
-      badge: "bg-amber-500/10 text-[#F59E0B] border-amber-500/30",
-    },
-  },
-  {
-    id: "vectordb",
-    name: "pgvector Store",
-    tag: "Cosine RAG",
-    type: "storage",
-    icon: VectorNetIcon,
-    x: 50,
-    y: 67,
-    stats: { qps: 92, p99: "12ms", mem: "86MB" },
-    colorTheme: {
-      base: "bg-[#0B1518]",
-      border: "border-cyan-500/50 hover:border-cyan-400",
-      glow: "shadow-[0_0_20px_rgba(6,182,212,0.25)]",
-      accent: "text-[#06B6D4]",
-      badge: "bg-cyan-500/10 text-[#06B6D4] border-cyan-500/30",
-    },
-  },
-  {
-    id: "postgres",
-    name: "Database Cluster",
-    tag: "Postgres 16",
-    type: "storage",
-    icon: DatabaseClusterIcon,
-    x: 82,
-    y: 67,
-    stats: { qps: 180, p99: "1.2ms", mem: "112MB" },
-    colorTheme: {
-      base: "bg-[#10141C]",
-      border: "border-slate-500/40 hover:border-cyan-500/50",
-      glow: "shadow-[0_0_15px_rgba(51,65,85,0.25)]",
-      accent: "text-[#8A99AD]",
-      badge: "bg-slate-700/20 text-[#8A99AD] border-slate-600/30",
-    },
-  },
-];
-
-interface Edge {
+export interface Edge {
   from: string;
   to: string;
   speed: number;
   color: string;
 }
-
-const EDGES: Edge[] = [
-  // Horizontal bus across Tier 1 (Ingress -> Orchestrator -> LLM)
-  { from: "gateway", to: "orchestrator", speed: 0.0035, color: "#8A99AD" },
-  { from: "orchestrator", to: "llm", speed: 0.0042, color: "#06B6D4" },
-  // Vertical data lanes
-  { from: "gateway", to: "redis", speed: 0.0065, color: "#F59E0B" },
-  { from: "orchestrator", to: "vectordb", speed: 0.0022, color: "#F97316" },
-  { from: "llm", to: "postgres", speed: 0.003, color: "#06B6D4" },
-  // Horizontal bus across Tier 2
-  { from: "redis", to: "vectordb", speed: 0.005, color: "#F59E0B" },
-  { from: "vectordb", to: "postgres", speed: 0.0025, color: "#06B6D4" },
-  // Diagonal async dispatch (Redis -> Orchestrator)
-  { from: "redis", to: "orchestrator", speed: 0.0045, color: "#F97316" },
-];
 
 /* ─── Low-Level Kernel / Telemetry Log Line Interface ─────────────────────── */
 
@@ -248,6 +118,7 @@ const INITIAL_LOGS: KernelLog[] = [
 ];
 
 const SystemArchitectureVisual = () => {
+  const { theme, activePreset } = useTheme();
   const [activeTab, setActiveTab] = useState<"architecture" | "terminal">("architecture");
   const [activeNode, setActiveNode] = useState<string | null>("orchestrator");
   const [traceActive, setTraceActive] = useState(false);
@@ -256,18 +127,103 @@ const SystemArchitectureVisual = () => {
   const [logs, setLogs] = useState<KernelLog[]>(INITIAL_LOGS);
   const [terminalInput, setTerminalInput] = useState("");
   const [coreLoad, setCoreLoad] = useState(1.2);
+
+  const isDark = theme === "dark" || (theme === "system" && (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches));
+  const meshTokens = isDark ? activePreset.dark.mesh : activePreset.light.mesh;
+
+  const nodes: NodeItem[] = useMemo(() => [
+    {
+      id: "gateway",
+      name: "API Ingress",
+      tag: "FastAPI",
+      type: "gateway",
+      icon: GatewayIcon,
+      x: 18,
+      y: 25,
+      stats: { qps: 142, p99: "14ms", mem: "38MB" },
+      colorTheme: meshTokens.gateway,
+    },
+    {
+      id: "orchestrator",
+      name: "Agent Orchestrator",
+      tag: "LangChain",
+      type: "orchestrator",
+      icon: OrchestratorIcon,
+      x: 50,
+      y: 25,
+      stats: { qps: 84, p99: "22ms", mem: "64MB" },
+      colorTheme: meshTokens.orchestrator,
+    },
+    {
+      id: "llm",
+      name: "LLM Inference",
+      tag: "Azure OpenAI",
+      type: "inference",
+      icon: LLMStreamIcon,
+      x: 82,
+      y: 25,
+      stats: { qps: 42, p99: "48ms", mem: "128MB" },
+      colorTheme: meshTokens.llm,
+    },
+    {
+      id: "redis",
+      name: "Broker & Cache",
+      tag: "Redis 7.2",
+      type: "cache",
+      icon: RedisBoltIcon,
+      x: 18,
+      y: 67,
+      stats: { qps: 310, p99: "0.4ms", mem: "24MB" },
+      colorTheme: meshTokens.redis,
+    },
+    {
+      id: "vectordb",
+      name: "pgvector Store",
+      tag: "Cosine RAG",
+      type: "storage",
+      icon: VectorNetIcon,
+      x: 50,
+      y: 67,
+      stats: { qps: 92, p99: "12ms", mem: "86MB" },
+      colorTheme: meshTokens.vectordb,
+    },
+    {
+      id: "postgres",
+      name: "Database Cluster",
+      tag: "Postgres 16",
+      type: "storage",
+      icon: DatabaseClusterIcon,
+      x: 82,
+      y: 67,
+      stats: { qps: 180, p99: "1.2ms", mem: "112MB" },
+      colorTheme: meshTokens.postgres,
+    },
+  ], [meshTokens]);
+
+  const edges: Edge[] = useMemo(() => [
+    { from: "gateway", to: "orchestrator", speed: 0.0035, color: meshTokens.edgeFast },
+    { from: "orchestrator", to: "llm", speed: 0.0042, color: meshTokens.edgeSlow },
+    { from: "gateway", to: "redis", speed: 0.0065, color: meshTokens.edgeFast },
+    { from: "orchestrator", to: "vectordb", speed: 0.0022, color: meshTokens.edgeSlow },
+    { from: "llm", to: "postgres", speed: 0.003, color: meshTokens.edgeSlow },
+    { from: "redis", to: "vectordb", speed: 0.005, color: meshTokens.edgeFast },
+    { from: "vectordb", to: "postgres", speed: 0.0025, color: meshTokens.edgeSlow },
+    { from: "redis", to: "orchestrator", speed: 0.0045, color: meshTokens.edgeFast },
+  ], [meshTokens]);
+
   const [dynamicStats, setDynamicStats] = useState<Record<string, { qps: number; p99: string; mem: string }>>(() => {
     const init: Record<string, { qps: number; p99: string; mem: string }> = {};
-    NODES.forEach((n) => {
+    nodes.forEach((n) => {
       init[n.id] = { ...n.stats };
     });
     return init;
   });
 
   const [cliHistory, setCliHistory] = useState<string[]>([
-    "Industrial Kernel Telemetry v2.4 (x86_64-linux-gnu)",
+    "Industrial Kernel Telemetry v2.5 (x86_64-linux-gnu)",
     "SYS_STATUS: NOMINAL // ALL DISPATCHERS ONLINE",
-    "Type 'projects', 'about', or 'help' to navigate.",
+    "SYSTEM THEME: Industrial Cyber [LOCKED]",
+    "Type 'projects', 'about', 'skills', or 'help' to navigate.",
   ]);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -279,7 +235,7 @@ const SystemArchitectureVisual = () => {
       setCoreLoad(+(1.1 + Math.random() * 0.4).toFixed(1));
       setDynamicStats((prev) => {
         const next = { ...prev };
-        NODES.forEach((n) => {
+        nodes.forEach((n) => {
           if (next[n.id]) {
             const jitter = Math.floor(Math.random() * 7) - 3;
             next[n.id] = {
@@ -292,7 +248,7 @@ const SystemArchitectureVisual = () => {
       });
     }, 2400);
     return () => clearInterval(interval);
-  }, []);
+  }, [nodes]);
 
   // Trigger Interactive Trace Action
   const handleTriggerTrace = useCallback(() => {
@@ -343,16 +299,18 @@ const SystemArchitectureVisual = () => {
 
       setLogs((prev) => [...prev.slice(-8), ...burstLogs]);
       setActiveTraceNode(null);
-      setTraceActive(false);
 
-      setToastMessage("⚡ Request execution completed in 24ms");
-      setTimeout(() => setToastMessage(null), 3200);
+      // Trigger metric toast notification
+      setToastMessage("TRACE COMPLETED: 24ms · 4 HOPS · 200 OK");
+      setTimeout(() => {
+        setToastMessage(null);
+        setTraceActive(false);
+      }, 2200);
     }, sequence.length * 260 + 200);
   }, [traceActive]);
 
   // Helper for smooth navigation to page sections without layout distortion
   const scrollToSection = useCallback((id: string) => {
-    // Unfocus input so browser does not snap viewport back to terminal
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
@@ -368,7 +326,7 @@ const SystemArchitectureVisual = () => {
     }, 60);
   }, []);
 
-  // Terminal command handler with real DOM navigation
+  // Terminal command handler with real DOM navigation and theme switching
   const handleCommandSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cmd = terminalInput.trim().toLowerCase();
@@ -388,6 +346,9 @@ const SystemArchitectureVisual = () => {
   • trace        -> Trigger synthetic telemetry burst
   • status       -> Print system & subsystem telemetry
   • clear        -> Wipe terminal screen`;
+    } else if (cmd === "theme" || cmd === "themes" || cmd.startsWith("theme ")) {
+      response = `SYSTEM THEME: Industrial Cyber [LOCKED]
+System aesthetics are permanently locked to Industrial Cyber.`;
     } else if (cmd === "project" || cmd === "projects") {
       scrollToSection("projects");
       response = `>> NAVIGATING TO #projects...
@@ -450,11 +411,12 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
     if (activeTab === "terminal" && logContainerRef.current) {
       logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
     }
-  }, [cliHistory, activeTab]);
+  }, [logs, cliHistory, activeTab]);
 
-  // Canvas drawing for multi-speed data lines
+  // Canvas Dynamic Circuit Wire & Data Particle Pulse Renderer
   useEffect(() => {
     if (activeTab !== "architecture") return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -473,9 +435,9 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
 
       ctx.clearRect(0, 0, width, height);
 
-      EDGES.forEach((edge, idx) => {
-        const fromNode = NODES.find((n) => n.id === edge.from);
-        const toNode = NODES.find((n) => n.id === edge.to);
+      edges.forEach((edge, idx) => {
+        const fromNode = nodes.find((n) => n.id === edge.from);
+        const toNode = nodes.find((n) => n.id === edge.to);
         if (!fromNode || !toNode) return;
 
         const x1 = (fromNode.x / 100) * width;
@@ -487,7 +449,7 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
-        ctx.strokeStyle = "rgba(51, 65, 85, 0.35)";
+        ctx.strokeStyle = "rgba(130, 145, 163, 0.18)";
         ctx.lineWidth = 1.2;
         ctx.setLineDash([3, 5]);
         ctx.stroke();
@@ -513,43 +475,43 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
 
     render();
     return () => cancelAnimationFrame(animationFrameId);
-  }, [activeTab]);
+  }, [activeTab, edges, nodes]);
 
   return (
-    <div className="relative w-full rounded-xl border border-slate-700/60 bg-[#08090C] backdrop-blur-2xl shadow-2xl shadow-black/80 overflow-hidden flex flex-col h-[500px] sm:h-[520px] md:h-[540px] font-mono">
+    <div className="relative w-full rounded-xl border border-[var(--border-primary)] bg-[var(--bg-terminal)] backdrop-blur-2xl shadow-2xl shadow-black/80 overflow-hidden flex flex-col h-[500px] sm:h-[520px] md:h-[540px] font-mono">
       {/* ── Industrial Kernel Header Bar ── */}
-      <div className="flex items-center justify-between px-3 sm:px-4 py-2 border-b border-slate-800 bg-[#0C0E14] select-none gap-2">
+      <div className="flex items-center justify-between px-3 sm:px-4 py-2 border-b border-[var(--border-primary)] bg-[var(--bg-secondary)] select-none gap-2">
         {/* Status indicator badge */}
         <div className="flex items-center gap-2 shrink-0">
-          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/40 text-[10px] text-emerald-400 font-bold uppercase tracking-wider">
-            <span className="w-1.5 h-1.5 bg-emerald-400 animate-pulse inline-block" />
+          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[var(--status-success)]/10 border border-[var(--status-success)]/30 text-[10px] text-[var(--status-success)] font-bold uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 bg-[var(--status-success)] animate-pulse inline-block rounded-full" />
             <span className="hidden xs:inline">SYS_STATUS:</span>
             <span>NOMINAL</span>
           </div>
-          <span className="hidden md:inline text-[11px] text-slate-500 font-mono">
-            // LOAD: <strong className="text-orange-400">{coreLoad}%</strong>
+          <span className="hidden md:inline text-[11px] text-[var(--text-muted)] font-mono">
+            // LOAD: <strong className="text-[var(--accent-primary)]">{coreLoad}%</strong>
           </span>
         </div>
 
-        {/* Tab Switcher: Segmented Dark Metallic Toggle */}
-        <div className="flex items-center bg-[#06070A] p-0.5 rounded border border-slate-800 shrink-0">
+        {/* Tab Switcher */}
+        <div className="flex items-center bg-[var(--bg-terminal)] p-0.5 rounded border border-[var(--border-primary)] shrink-0">
           <button
             onClick={() => setActiveTab("architecture")}
             className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1 text-xs font-semibold transition-all rounded-sm ${
               activeTab === "architecture"
-                ? "bg-[#141822] text-orange-400 border-b-2 border-orange-500 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[var(--bg-elevated)] text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] shadow-sm"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`}
           >
-            <span className="text-[10px] text-slate-500">01</span>
+            <span className="text-[10px] text-[var(--text-muted)]">01</span>
             Mesh Graph
           </button>
           <button
             onClick={() => setActiveTab("terminal")}
             className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1 text-xs font-semibold transition-all rounded-sm ${
               activeTab === "terminal"
-                ? "bg-[#141822] text-orange-400 border-b-2 border-orange-500 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[var(--bg-elevated)] text-[var(--accent-primary)] border-b-2 border-[var(--accent-primary)] shadow-sm"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`}
           >
             <TerminalIcon className="w-3.5 h-3.5" />
@@ -562,13 +524,13 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
           <button
             onClick={handleTriggerTrace}
             disabled={traceActive}
-            className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 text-xs font-bold text-orange-400 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/40 rounded transition-all active:scale-95 disabled:opacity-50"
+            className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 text-xs font-bold text-[var(--accent-primary)] bg-[var(--accent-primary)]/10 hover:bg-[var(--accent-primary)]/20 border border-[var(--accent-primary)]/30 rounded transition-all active:scale-95 disabled:opacity-50"
             title="Inject synthetic test trace"
           >
             {traceActive ? (
-              <RotateCw className="w-3.5 h-3.5 animate-spin text-orange-400" />
+              <RotateCw className="w-3.5 h-3.5 animate-spin text-[var(--accent-primary)]" />
             ) : (
-              <Play className="w-3 h-3 fill-current text-orange-400" />
+              <Play className="w-3 h-3 fill-current text-[var(--accent-primary)]" />
             )}
             <span className="hidden sm:inline text-[11px] uppercase tracking-wide">
               Simulate Trace
@@ -580,14 +542,14 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
       {/* ── Content Area ── */}
       <div className="relative flex-1 overflow-hidden">
         {activeTab === "architecture" ? (
-          <div className="relative w-full h-full select-none bg-[#08090C]">
+          <div className="relative w-full h-full select-none bg-[var(--bg-terminal)]">
             {/* Fine circuit grid background */}
             <div
-              className="absolute inset-0 opacity-20 pointer-events-none"
+              className="absolute inset-0 opacity-15 pointer-events-none"
               style={{
                 backgroundImage: `
-                  linear-gradient(to right, rgba(51, 65, 85, 0.3) 1px, transparent 1px),
-                  linear-gradient(to bottom, rgba(51, 65, 85, 0.3) 1px, transparent 1px)
+                  linear-gradient(to right, rgba(146, 158, 172, 0.18) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(146, 158, 172, 0.18) 1px, transparent 1px)
                 `,
                 backgroundSize: "32px 32px",
               }}
@@ -597,23 +559,23 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
             {/* Interactive Nodes: Cleanly spaced in 3 columns x 2 rows */}
-            {NODES.map((node) => {
+            {nodes.map((node) => {
+              const Icon = node.icon;
               const isSelected = activeNode === node.id;
               const isTraceHighlighted = activeTraceNode === node.id;
-              const Icon = node.icon;
               const currentStat = dynamicStats[node.id] || node.stats;
 
               return (
                 <div
                   key={node.id}
                   onClick={() => setActiveNode(node.id)}
-                  onMouseEnter={() => setActiveNode(node.id)}
                   style={{
+                    position: "absolute",
                     left: `${node.x}%`,
                     top: `${node.y}%`,
                     transform: "translate(-50%, -50%)",
                   }}
-                  className={`absolute cursor-pointer transition-all duration-200 z-10 ${
+                  className={`cursor-pointer transition-all duration-300 z-10 ${
                     isSelected || isTraceHighlighted ? "scale-105 z-20" : "hover:scale-105"
                   }`}
                 >
@@ -622,10 +584,10 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
                       node.colorTheme.base
                     } ${
                       isTraceHighlighted
-                        ? "border-orange-400 ring-2 ring-orange-500/40 shadow-[0_0_25px_rgba(249,115,22,0.6)]"
+                        ? "border-[var(--accent-primary)] ring-2 ring-[var(--accent-primary)]/40 shadow-[var(--shadow-glow)]"
                         : isSelected
                         ? `${node.colorTheme.border} ${node.colorTheme.glow}`
-                        : "border-slate-800/90 hover:border-slate-700"
+                        : "border-[var(--border-primary)] hover:border-[var(--border-hover)]"
                     }`}
                   >
                     {/* Infrastructure Icon */}
@@ -635,17 +597,17 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
 
                     {/* Node Metadata (Clean Vertical Stack, Zero Overlap) */}
                     <div className="flex flex-col text-left">
-                      <div className="flex items-center gap-1.5 leading-tight">
-                        <span className="text-[11px] font-bold text-slate-200 whitespace-nowrap">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[11px] sm:text-xs font-bold text-[var(--text-primary)] leading-none tracking-tight whitespace-nowrap">
                           {node.name}
                         </span>
                         {isSelected && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-ping shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--status-success)] animate-pulse" />
                         )}
                       </div>
-                      <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-mono mt-0.5">
-                        <span className="text-slate-400 whitespace-nowrap">{node.tag}</span>
-                        <span className="text-slate-600">·</span>
+                      <div className="flex items-center gap-1.5 text-[9px] text-[var(--text-secondary)] font-mono mt-0.5">
+                        <span className="text-[var(--text-muted)] whitespace-nowrap">{node.tag}</span>
+                        <span className="text-[var(--text-disabled)]">·</span>
                         <span className={`${node.colorTheme.accent} whitespace-nowrap`}>{currentStat.p99}</span>
                       </div>
                     </div>
@@ -655,33 +617,33 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
             })}
 
             {/* Bottom Live Telemetry Inspection Bar */}
-            <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 sm:p-2.5 rounded-lg bg-[#0C0E14]/95 border border-slate-800 backdrop-blur-md flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 sm:p-2.5 rounded-lg bg-[var(--bg-secondary)]/95 border border-[var(--border-primary)] backdrop-blur-md flex flex-wrap items-center justify-between gap-2 text-xs">
               {activeNode ? (
                 (() => {
-                  const node = NODES.find((n) => n.id === activeNode) || NODES[0];
+                  const node = nodes.find((n) => n.id === activeNode) || nodes[0];
                   const stat = dynamicStats[node.id] || node.stats;
                   return (
                     <>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-400 border border-orange-500/20">
+                        <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] border border-[var(--accent-primary)]/25">
                           {node.type}
                         </span>
-                        <span className="font-bold text-slate-200">{node.name}</span>
-                        <span className="text-slate-600 hidden xs:inline">|</span>
-                        <span className="text-slate-400 text-[11px] font-mono hidden xs:inline">
-                          throughput: <strong className="text-cyan-400">{stat.qps} qps</strong>
+                        <span className="font-bold text-[var(--text-primary)]">{node.name}</span>
+                        <span className="text-[var(--text-disabled)] hidden xs:inline">|</span>
+                        <span className="text-[var(--text-secondary)] text-[11px] font-mono hidden xs:inline">
+                          throughput: <strong className="text-[var(--accent-teal)]">{stat.qps} qps</strong>
                         </span>
                       </div>
-                      <div className="flex items-center gap-2.5 text-[11px] font-mono text-slate-400">
-                        <span>p99: <strong className="text-orange-400">{stat.p99}</strong></span>
-                        <span>mem: <strong className="text-slate-300">{stat.mem}</strong></span>
-                        <span className="text-emerald-400 font-bold">200 OK</span>
+                      <div className="flex items-center gap-2.5 text-[11px] font-mono text-[var(--text-secondary)]">
+                        <span>p99: <strong className="text-[var(--accent-primary)]">{stat.p99}</strong></span>
+                        <span>mem: <strong className="text-[var(--text-primary)]">{stat.mem}</strong></span>
+                        <span className="text-[var(--status-success)] font-bold">200 OK</span>
                       </div>
                     </>
                   );
                 })()
               ) : (
-                <span className="text-slate-500 text-xs">
+                <span className="text-[var(--text-muted)] text-xs">
                   Hover or select an infrastructure node to inspect live kernel telemetry.
                 </span>
               )}
@@ -689,10 +651,10 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
           </div>
         ) : (
           /* Live Kernel Terminal Log & Interactive Shell */
-          <div className="relative flex flex-col h-full bg-[#06070A] p-3 sm:p-4 font-mono text-xs overflow-hidden">
+          <div className="relative flex flex-col h-full bg-[var(--bg-terminal)] p-3 sm:p-4 font-mono text-xs overflow-hidden">
             {/* Subtle CRT Scanline Overlay (~2% opacity) */}
             <div
-              className="absolute inset-0 pointer-events-none opacity-[0.03] z-10"
+              className="absolute inset-0 pointer-events-none opacity-[0.02] z-10"
               style={{
                 backgroundImage:
                   "repeating-linear-gradient(0deg, #000, #000 1px, transparent 1px, transparent 2px)",
@@ -703,35 +665,35 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
             <div ref={logContainerRef} className="relative z-0 flex-1 overflow-y-auto space-y-1.5 pr-1.5 custom-scrollbar">
               {logs.map((log, index) => (
                 <div key={index} className="flex flex-wrap sm:flex-nowrap items-baseline gap-x-2 gap-y-0.5 leading-relaxed text-[11px]">
-                  {/* Timestamp in muted dark slate */}
-                  <span className="text-[#475569] shrink-0 font-mono">
+                  {/* Timestamp in muted dim phosphor */}
+                  <span className="text-[var(--text-disabled)] shrink-0 font-mono">
                     [{log.timestamp}]
                   </span>
 
-                  {/* Level indicator with Industrial Color Hierarchy */}
+                  {/* Level indicator */}
                   <span
                     className={`font-bold shrink-0 ${
                       log.level === "INFO"
-                        ? "text-[#06B6D4]" // Cool Cyan
+                        ? "text-[var(--accent-teal)]"
                         : log.level === "OK"
-                        ? "text-[#22C55E]" // Muted Terminal Green
+                        ? "text-[var(--status-success)]"
                         : log.level === "WARN"
-                        ? "text-[#F59E0B]" // Burnt Amber
-                        : "text-[#F97316]" // Warm Ochre
+                        ? "text-[var(--status-warning)]"
+                        : "text-[var(--status-info)]"
                     }`}
                   >
                     [{log.level}]
                   </span>
 
                   {/* Caller subsystem */}
-                  <span className="text-slate-400 shrink-0 font-semibold">{log.caller}:</span>
+                  <span className="text-[var(--text-secondary)] shrink-0 font-semibold">{log.caller}:</span>
 
                   {/* Message */}
-                  <span className="text-slate-300 break-words">{log.message}</span>
+                  <span className="text-[var(--text-primary)]/90 break-words">{log.message}</span>
                 </div>
               ))}
 
-              <div className="border-t border-slate-800 my-2 pt-2" />
+              <div className="border-t border-[var(--border-primary)] my-2 pt-2" />
 
               {/* CLI Command History */}
               {cliHistory.map((line, idx) => (
@@ -739,8 +701,8 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
                   key={`cli-${idx}`}
                   className={`text-[11px] whitespace-pre-wrap ${
                     line.startsWith("$")
-                      ? "text-orange-400 font-bold"
-                      : "text-slate-400"
+                      ? "text-[var(--accent-primary)] font-semibold"
+                      : "text-[var(--text-secondary)]"
                   }`}
                 >
                   {line}
@@ -751,17 +713,17 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
             {/* Interactive Shell Prompt */}
             <form
               onSubmit={handleCommandSubmit}
-              className="relative z-0 mt-2 pt-2 border-t border-slate-800/80 flex items-center gap-2"
+              className="relative z-0 mt-2 pt-2 border-t border-[var(--border-primary)] flex items-center gap-2"
             >
-              <span className="text-orange-400 font-bold text-xs shrink-0">
+              <span className="text-[var(--accent-primary)] font-bold text-xs shrink-0">
                 vishvaa@kernel:~$
               </span>
               <input
                 type="text"
                 value={terminalInput}
                 onChange={(e) => setTerminalInput(e.target.value)}
-                placeholder="try 'projects', 'about', 'experience', 'skills', or 'help'..."
-                className="flex-1 bg-transparent border-none outline-none text-slate-200 placeholder:text-slate-600 font-mono text-xs"
+                placeholder="try 'theme', 'projects', 'about', or 'help'..."
+                className="flex-1 bg-transparent border-none outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] font-mono text-xs"
               />
             </form>
           </div>
@@ -769,8 +731,8 @@ LINKEDIN: https://linkedin.com/in/vishvaak`;
 
         {/* Toast Metric Notification for Simulated Trace */}
         {toastMessage && (
-          <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 px-3 py-1.5 rounded bg-[#16120F] border border-orange-500/60 text-orange-300 text-xs font-mono font-semibold shadow-lg shadow-orange-950/50 flex items-center gap-2 animate-fade-in">
-            <Zap className="w-3.5 h-3.5 text-orange-400 fill-current" />
+          <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 px-3 py-1.5 rounded bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/50 text-[var(--text-primary)] text-xs font-mono font-semibold shadow-lg shadow-black/50 flex items-center gap-2 animate-fade-in">
+            <Zap className="w-3.5 h-3.5 text-[var(--accent-primary)] fill-current" />
             <span>{toastMessage}</span>
           </div>
         )}

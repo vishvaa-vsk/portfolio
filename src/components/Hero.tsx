@@ -1,8 +1,10 @@
-import { useState, useEffect, useMemo, memo } from "react";
+import { useState, useEffect, useMemo, memo, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { FileText, Github, Linkedin, Mail } from "lucide-react";
 import { t } from "@/locales/content";
-import SystemArchitectureVisual from "./SystemArchitectureVisual";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+const SystemArchitectureVisual = lazy(() => import("./SystemArchitectureVisual"));
 
 /* ─── Typewriter ─────────────────────────────────────────────────────────────── */
 const TypewriterLoop = memo(({ texts }: { texts: string[] }) => {
@@ -37,7 +39,7 @@ const TypewriterLoop = memo(({ texts }: { texts: string[] }) => {
   return (
     <>
       {displayedText}
-      <span className="inline-block w-[3px] h-[1em] bg-primary ml-1 animate-pulse" />
+      <span className="inline-block w-[3px] h-[1em] bg-[#E69A63] ml-1 animate-pulse" />
     </>
   );
 });
@@ -46,6 +48,8 @@ TypewriterLoop.displayName = "TypewriterLoop";
 
 /* ─── Hero ───────────────────────────────────────────────────────────────────── */
 const Hero = () => {
+  const isMobile = useIsMobile();
+
   const links = useMemo(
     () => ({
       curriculo: "/Vishvaa_K_Resume.pdf",
@@ -73,12 +77,12 @@ const Hero = () => {
           <div className="lg:col-span-6 flex flex-col items-center text-center lg:items-start lg:text-left">
             {/* System Status Dynamic Pill */}
             <div
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-fade-up w-fit shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[var(--status-success)]/10 border border-[var(--status-success)]/30 text-[var(--status-success)] text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-fade-up w-fit shadow-[0_0_12px_var(--glow-secondary)]"
               style={{ animationDelay: "0.02s" }}
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--status-success)] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--status-success)]" />
               </span>
               <span>Available for Backend / AI Roles</span>
             </div>
@@ -87,21 +91,21 @@ const Hero = () => {
               className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4 sm:mb-6 animate-fade-up text-foreground"
               style={{ animationDelay: "0.05s" }}
             >
-              <span className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-normal text-slate-500 dark:text-slate-300 block mb-2 sm:mb-3">
+              <span className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-normal text-[var(--text-muted)] block mb-2 sm:mb-3">
                 Hello, I'm
               </span>
               <span className="text-gradient">Vishvaa K</span>
             </h1>
 
             <p
-              className="text-lg sm:text-xl md:text-2xl font-medium text-foreground mb-4 animate-fade-up min-h-[1.75em] sm:min-h-[2em] flex items-center justify-center lg:justify-start"
+              className="text-lg sm:text-xl md:text-2xl font-medium text-[var(--text-primary)] mb-4 animate-fade-up min-h-[1.75em] sm:min-h-[2em] flex items-center justify-center lg:justify-start"
               style={{ animationDelay: "0.1s" }}
             >
               <TypewriterLoop texts={t.hero.roles} />
             </p>
 
             <p
-              className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8 sm:mb-10 animate-fade-up mx-auto lg:mx-0 px-2 sm:px-0 leading-relaxed"
+              className="text-base sm:text-lg text-[var(--text-secondary)] max-w-xl mb-8 sm:mb-10 animate-fade-up mx-auto lg:mx-0 px-2 sm:px-0 leading-relaxed"
               style={{ animationDelay: "0.2s" }}
             >
               {t.hero.description}
@@ -120,7 +124,7 @@ const Hero = () => {
               >
                 <Button
                   size="lg"
-                  className="bg-primary text-white hover:bg-primary/90 hover:brightness-110 active:scale-95 transition-all duration-300 group shadow-lg shadow-primary/25 w-full sm:w-auto text-base py-6 sm:py-4 rounded-xl"
+                  className="bg-[var(--accent-primary)] text-[var(--bg-primary)] font-semibold hover:bg-[var(--accent-hover)] active:scale-95 transition-all duration-300 group shadow-[var(--shadow-glow)] border border-[var(--accent-primary)]/30 w-full sm:w-auto text-base py-6 sm:py-4 rounded-xl"
                 >
                   <FileText className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
                   {t.hero.resumeBtn}
@@ -138,12 +142,14 @@ const Hero = () => {
                     aria-label={social.label}
                     className="
                       p-4 sm:p-3 rounded-xl sm:rounded-lg
-                      bg-white/5 dark:bg-white/[0.03]
-                      border border-slate-200 dark:border-white/10
-                      text-foreground
+                      bg-[var(--bg-secondary)] dark:bg-[var(--bg-tertiary)]
+                      border border-[var(--border-primary)]
+                      text-[var(--text-secondary)]
                       transition-all duration-300
-                      hover:bg-slate-900 hover:text-primary hover:border-slate-800 hover:shadow-md
-                      dark:hover:bg-white dark:hover:text-primary dark:hover:border-white
+                      hover:bg-[var(--bg-tertiary)] dark:hover:bg-[var(--bg-elevated)]
+                      hover:text-[var(--accent-primary)]
+                      hover:border-[var(--accent-primary)]/40
+                      hover:shadow-[0_0_12px_var(--glow-primary)]
                       hover-shake
                       shadow-sm
                       active:scale-95
@@ -156,13 +162,17 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN: Interactive Backend Architecture Mesh ── */}
-          <div
-            className="lg:col-span-6 w-full animate-fade-up relative mt-6 lg:mt-0"
-            style={{ animationDelay: "0.25s" }}
-          >
-            <SystemArchitectureVisual />
-          </div>
+          {/* ── RIGHT COLUMN: Interactive Backend Architecture Mesh (Desktop only) ── */}
+          {!isMobile && (
+            <div
+              className="hidden lg:block lg:col-span-6 w-full animate-fade-up relative mt-6 lg:mt-0"
+              style={{ animationDelay: "0.25s" }}
+            >
+              <Suspense fallback={null}>
+                <SystemArchitectureVisual />
+              </Suspense>
+            </div>
+          )}
         </div>
       </div>
     </section>

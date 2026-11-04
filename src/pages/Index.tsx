@@ -25,8 +25,8 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen relative bg-[#F8FAFC] dark:bg-[#08090C] text-foreground transition-colors duration-500 font-sans">
-      <Suspense fallback={<div className="fixed inset-0 bg-[#08090C] pointer-events-none" />}>
+    <div className="min-h-screen relative bg-[var(--bg-primary)] text-foreground transition-colors duration-500 font-sans">
+      <Suspense fallback={<div className="fixed inset-0 bg-[var(--bg-primary)] pointer-events-none" />}>
         <GridBackground />
       </Suspense>
       {/* Noise Texture - pointer-events-none for performance */}

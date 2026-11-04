@@ -9,7 +9,7 @@ const TechStack = () => {
     () => [
       {
         title: "Backend Engineering",
-        iconComp: <Server className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
+        iconComp: <Server className="h-5 w-5 sm:h-6 sm:w-6 text-[#E69A63]" />,
         skills: [
           {
             name: "Python",
@@ -42,7 +42,7 @@ const TechStack = () => {
             icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/openapi/openapi-original.svg",
           },
           {
-            name:"Ruff",
+            name: "Ruff",
             icon: "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ruff/default.svg"
           }
 
@@ -50,7 +50,7 @@ const TechStack = () => {
       },
       {
         title: "AI & GenAI",
-        iconComp: <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
+        iconComp: <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-[#83C4CC]" />,
         skills: [
           {
             name: "LangChain",
@@ -84,7 +84,7 @@ const TechStack = () => {
       },
       {
         title: "Databases & Storage",
-        iconComp: <Database className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
+        iconComp: <Database className="h-5 w-5 sm:h-6 sm:w-6 text-[#91A6BA]" />,
         skills: [
           {
             name: "PostgreSQL",
@@ -114,7 +114,7 @@ const TechStack = () => {
       },
       {
         title: "Cloud & DevOps",
-        iconComp: <Cloud className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
+        iconComp: <Cloud className="h-5 w-5 sm:h-6 sm:w-6 text-[#83B89A]" />,
         skills: [
           {
             name: "Docker",
@@ -122,7 +122,7 @@ const TechStack = () => {
           },
           {
             name: "AWS",
-            icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+            icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aws.svg",
           },
           {
             name: "Linux",
@@ -149,7 +149,7 @@ const TechStack = () => {
       },
       {
         title: "Frontend",
-        iconComp: <Layout className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
+        iconComp: <Layout className="h-5 w-5 sm:h-6 sm:w-6 text-[#F5F2EC]" />,
         skills: [
           {
             name: "React.js",
@@ -185,22 +185,29 @@ const TechStack = () => {
   const firstRow = useMemo(() => skillsData.slice(0, 3), [skillsData]);
   const secondRow = useMemo(() => skillsData.slice(3, 5), [skillsData]);
 
+  const categoryIconStyles = [
+    "bg-[var(--accent-primary)]/10 border-[var(--accent-primary)]/25 text-[var(--accent-primary)] shadow-[var(--shadow-glow)]",
+    "bg-[var(--accent-teal)]/10 border-[var(--accent-teal)]/25 text-[var(--accent-teal)] shadow-sm",
+    "bg-[var(--status-info)]/10 border-[var(--status-info)]/25 text-[var(--status-info)] shadow-sm",
+    "bg-[var(--status-success)]/10 border-[var(--status-success)]/25 text-[var(--status-success)] shadow-sm",
+    "bg-[var(--text-primary)]/10 border-[var(--text-primary)]/20 text-[var(--text-primary)] shadow-sm",
+  ];
+
   const renderCard = (category: typeof skillsData[0], categoryIndex: number) => (
     <div
       key={categoryIndex}
-      className={`group p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-[#e2e8f0] dark:border-white/5 bg-white/85 dark:bg-[#0D1117]/90 backdrop-blur-md hover:border-primary/30 dark:hover:bg-[#111622] transition-all duration-700 ease-out shadow-[0_12px_32px_rgba(99,102,241,0.06)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.22)] hover:shadow-[0_24px_60px_rgba(99,102,241,0.14)] ${
-        isVisible
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-10"
-      }`}
+      className={`group p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-[var(--border-primary)] bg-[var(--bg-tertiary)] backdrop-blur-md hover:border-primary/40 dark:hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)] transition-all duration-500 ease-out shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)] ${isVisible
+        ? "opacity-100 translate-y-0"
+        : "opacity-0 translate-y-10"
+        }`}
       style={{ transitionDelay: `${categoryIndex * 50}ms` }}
     >
       <div className="flex items-center gap-3 sm:gap-4 mb-6">
-        <div className="p-2 sm:p-3 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(99,102,241,0.1)] group-hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all duration-300 shrink-0">
+        <div className={`p-2 sm:p-3 rounded-lg border ${categoryIconStyles[categoryIndex] || categoryIconStyles[0]} transition-all duration-300 shrink-0`}>
           {category.iconComp}
         </div>
 
-        <h3 className="text-lg font-bold text-slate-900 dark:text-foreground group-hover:text-primary transition-colors leading-tight">
+        <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-primary transition-colors leading-tight">
           {t.tech.categories[categoryIndex]}
         </h3>
       </div>
@@ -209,9 +216,8 @@ const TechStack = () => {
         {category.skills.map((skill, skillIndex) => (
           <div
             key={skill.name}
-            className={`group/skill flex items-center gap-2 rounded-full border border-[#e2e8f0] dark:border-white/10 bg-[#f1f5f9] dark:bg-[#0D1117]/60 px-3 py-2 transition-all duration-300 hover:border-primary/30 hover:bg-[#e2e8f0] dark:hover:bg-primary/[0.1] hover:shadow-[0_4px_16px_rgba(99,102,241,0.15)] active:scale-95 ${
-              isVisible ? "opacity-100" : "opacity-0"
-            }`}
+            className={`group/skill flex items-center gap-2 rounded-full border border-[var(--border-primary)] bg-[var(--bg-elevated)] px-3 py-2 transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 hover:shadow-sm active:scale-95 ${isVisible ? "opacity-100" : "opacity-0"
+              }`}
             style={{
               transitionDelay: `${categoryIndex * 50 + skillIndex * 20}ms`,
             }}
@@ -219,15 +225,14 @@ const TechStack = () => {
             <img
               src={skill.icon}
               alt={`${skill.name} icon`}
-              className={`h-4 w-4 object-contain flex-shrink-0 ${
-                skill.invertInDarkMode
-                  ? "dark:invert dark:opacity-90"
-                  : ""
-              }`}
+              className={`h-4 w-4 object-contain flex-shrink-0 ${skill.invertInDarkMode
+                ? "dark:invert dark:opacity-90"
+                : ""
+                }`}
               loading="lazy"
               decoding="async"
             />
-            <p className="text-xs font-semibold text-slate-900 dark:text-white/80 group-hover/skill:text-primary transition-colors duration-300 whitespace-nowrap">
+            <p className="text-xs font-semibold text-[var(--text-secondary)] group-hover/skill:text-primary transition-colors duration-300 whitespace-nowrap">
               {skill.name}
             </p>
           </div>
@@ -243,12 +248,11 @@ const TechStack = () => {
     >
       <div
         ref={ref}
-        className={`container relative z-10 transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
+        className={`container relative z-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
       >
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-10 sm:mb-12 ml-1">
-          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(99,102,241,0.15)]">
+          <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20 shadow-[var(--shadow-glow)]">
             <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
           </div>
 
@@ -256,7 +260,7 @@ const TechStack = () => {
             <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-primary font-semibold block mb-1">
               {t.tech.badge}
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
               {t.tech.title}
             </h2>
           </div>

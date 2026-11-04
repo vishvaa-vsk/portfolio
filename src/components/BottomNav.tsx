@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowUp, Folder, Briefcase, Mail, X,
-  User, Cpu, Globe, Sun, Moon, Menu, Heart, Award,
+  User, Cpu, Sun, Moon, Menu, Heart, Award,
 } from "lucide-react";
 import { TerminalIcon } from "./ui/TerminalIcon";
 import { t } from "@/locales/content";
@@ -73,7 +73,7 @@ const MobileTopNav = () => {
         fixed top-0 left-0 right-0 z-50 md:hidden
         transition-all duration-300 px-4 pt-3 pb-2
         ${isScrolled
-          ? "bg-white/75 dark:bg-background/80 backdrop-blur-xl border-b border-[#e2e8f0] dark:border-white/10 shadow-sm"
+          ? "bg-[var(--bg-primary)]/85 backdrop-blur-xl border-b border-[var(--border-primary)] shadow-sm"
           : "bg-transparent"
         }
       `}
@@ -86,10 +86,10 @@ const MobileTopNav = () => {
           onClick={(e) => { e.preventDefault(); scrollTo("top"); }}
           className="flex items-center gap-2 group"
         >
-          <div className="flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-primary/15 to-[#e2e8f0] dark:from-primary/10 dark:to-transparent border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
+          <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--accent-primary)]/10 border border-[var(--accent-primary)]/25 group-hover:border-primary/40 transition-all duration-300">
             <TerminalIcon className="h-4 w-4 text-primary" />
           </div>
-          <span className="font-bold text-base tracking-tight text-slate-900 dark:text-foreground group-hover:text-primary transition-colors">
+          <span className="font-bold text-base tracking-tight text-[var(--text-primary)] group-hover:text-primary transition-colors">
             Vishvaa K
           </span>
         </a>
@@ -102,7 +102,7 @@ const MobileTopNav = () => {
             border transition-all duration-200 active:scale-90
             ${isExpanded
               ? "bg-primary/10 border-primary/30 text-primary"
-              : "border-[#e2e8f0] dark:border-white/10 bg-[#f1f5f9] dark:bg-white/5 text-slate-600 dark:text-white/60 hover:text-primary dark:hover:text-white/90"
+              : "border-[var(--border-primary)] bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-primary"
             }
           `}
         >
@@ -114,15 +114,15 @@ const MobileTopNav = () => {
       <div
         className={`
           overflow-hidden transition-all duration-300 ease-out
-          ${isExpanded ? "max-h-[400px] opacity-100 mt-3" : "max-h-0 opacity-0 mt-0"}
+          ${isExpanded ? "max-h-[440px] opacity-100 mt-3" : "max-h-0 opacity-0 mt-0"}
         `}
       >
         <div className="
-          bg-white/95 dark:bg-[#0D1117]/95 backdrop-blur-xl
-          border border-[#e2e8f0] dark:border-white/10
+          bg-[var(--bg-secondary)]/95 backdrop-blur-xl
+          border border-[var(--border-primary)]
           rounded-xl
           p-3
-          shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]
+          shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]
         ">
           {/* Grid de navegação */}
           <div className="grid grid-cols-3 gap-1 mb-2">
@@ -142,12 +142,12 @@ const MobileTopNav = () => {
                     ${isActive
                       ? "bg-primary/10 text-primary border-primary/30"
                       : isSpecial
-                        ? "text-slate-600 dark:text-slate-300"
-                        : "text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-primary/5"
+                        ? "text-[var(--text-secondary)]"
+                        : "text-[var(--text-secondary)] hover:text-primary hover:bg-primary/5"
                     }
                   `}
                 >
-                  <Icon className={`h-5 w-5 ${isActive ? "text-primary" : "text-slate-500 dark:text-slate-400"}`} />
+                  <Icon className={`h-5 w-5 ${isActive ? "text-primary" : "text-[var(--text-muted)]"}`} />
                   <span className="text-[11px] font-medium leading-none">{label}</span>
                 </button>
               );
@@ -155,18 +155,16 @@ const MobileTopNav = () => {
           </div>
 
           {/* Divisor */}
-          <div className="h-px bg-[#e2e8f0] dark:bg-white/[0.07] my-3" />
+          <div className="h-px bg-[var(--border-primary)] my-3" />
 
-          {/* Tema + Idioma */}
-          <div className="flex gap-2">
-            <button
-              onClick={toggleTheme}
-              className="flex-1 flex items-center justify-center gap-2 h-10 rounded-lg border border-[#e2e8f0] dark:border-white/10 bg-[#f1f5f9] dark:bg-white/[0.03] text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-primary/5 hover:border-primary/20 active:scale-95 transition-all duration-200 text-xs font-medium shadow-sm"
-            >
-              {theme === "dark" ? <Sun className="h-4 w-4 text-slate-400" /> : <Moon className="h-4 w-4 text-slate-500" />}
-              <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
-            </button>
-          </div>
+          {/* Modo Claro / Escuro */}
+          <button
+            onClick={toggleTheme}
+            className="w-full flex items-center justify-center gap-2 h-10 rounded-lg border border-[var(--border-primary)] bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-primary hover:bg-primary/5 hover:border-primary/20 active:scale-95 transition-all duration-200 text-xs font-medium shadow-sm"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+          </button>
         </div>
       </div>
     </div>

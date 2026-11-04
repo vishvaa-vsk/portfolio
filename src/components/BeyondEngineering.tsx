@@ -31,14 +31,14 @@ const BeyondEngineering = () => {
       >
         {/* Section Title */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-10 sm:mb-16 ml-1">
-          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-[0_0_10px_rgba(99,102,241,0.15)]">
+          <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20 shadow-[var(--shadow-glow)]">
             <HeartHandshake className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
           </div>
           <div>
             <span className="text-xs sm:text-sm uppercase tracking-[0.22em] text-primary font-semibold block mb-1">
               {t.beyond.badge}
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
               {t.beyond.title}
             </h2>
           </div>
@@ -48,44 +48,44 @@ const BeyondEngineering = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           
           {/* Left Column: Role & Narrative */}
-          <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-white/95 dark:bg-[#0D1117]/90 backdrop-blur-xl border border-[#e2e8f0] dark:border-white/10 p-6 sm:p-8 shadow-[0_18px_50px_rgba(99,102,241,0.08)] transition-all duration-500 hover:border-primary/25 hover:shadow-[0_22px_60px_rgba(99,102,241,0.14)]">
+          <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-[var(--bg-secondary)] backdrop-blur-xl border border-[var(--border-primary)] p-6 sm:p-8 shadow-[var(--shadow-card)] transition-all duration-500 hover:border-primary/40 hover:shadow-[var(--shadow-hover)]">
             <div>
               <div className="flex items-center gap-3.5 mb-6">
-                <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-[0_0_10px_rgba(99,102,241,0.15)]">
+                <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-sm">
                   <Award className="h-6 w-6 text-primary" />
                 </div>
                 <div>
                   <span className="text-xs font-semibold text-primary uppercase tracking-wider block mb-0.5">
                     {t.beyond.role}
                   </span>
-                  <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-foreground tracking-tight leading-tight">
+                  <h3 className="text-base sm:text-lg font-extrabold text-[var(--text-primary)] tracking-tight leading-tight">
                     {t.beyond.organization}
                   </h3>
                 </div>
               </div>
 
-              <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/15 mb-6">
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20 mb-6">
                 <Calendar className="h-3.5 w-3.5" />
                 {t.beyond.period}
               </div>
 
-              <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-foreground mb-3">
+              <h4 className="text-base sm:text-lg font-bold text-[var(--text-primary)] mb-3">
                 {t.beyond.missionTitle}
               </h4>
               
-              <p className="text-sm sm:text-base text-slate-600 dark:text-muted-foreground leading-relaxed mb-8">
+              <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed mb-8">
                 {t.beyond.missionDesc}
               </p>
             </div>
 
             {/* Metrics Dashboard */}
-            <div className="grid grid-cols-3 gap-4 border-t border-[#e2e8f0] dark:border-white/10 pt-6">
+            <div className="grid grid-cols-3 gap-4 border-t border-[var(--border-primary)] pt-6">
               {t.beyond.stats.map((stat, idx) => (
                 <div key={idx} className="flex flex-col text-center">
-                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1 block">
+                  <span className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-1 block">
                     {stat.label}
                   </span>
-                  <span className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-foreground leading-none">
+                  <span className="text-xs sm:text-sm font-extrabold text-[var(--text-primary)] leading-none">
                     {stat.value}
                   </span>
                 </div>
@@ -98,17 +98,17 @@ const BeyondEngineering = () => {
             {t.beyond.pillars.map((pillar, index) => (
               <div
                 key={index}
-                className="group rounded-2xl border border-[#e2e8f0] dark:border-white/10 bg-white/95 dark:bg-[#0D1117]/90 backdrop-blur-xl hover:border-primary/30 dark:hover:bg-[#111622] transition-all duration-500 p-5 sm:p-6 shadow-[0_18px_50px_rgba(99,102,241,0.08)] hover:shadow-[0_24px_60px_rgba(99,102,241,0.14)]"
+                className="group rounded-2xl border border-[var(--border-primary)] bg-[var(--bg-tertiary)] backdrop-blur-xl hover:border-primary/40 dark:hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)] transition-all duration-500 p-5 sm:p-6 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)]"
               >
                 <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-[0_0_10px_rgba(99,102,241,0.15)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
                     {pillarIcons[index]}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                    <h4 className="text-base sm:text-lg font-bold text-[var(--text-primary)] mb-2 group-hover:text-primary transition-colors duration-300">
                       {pillar.title}
                     </h4>
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-muted-foreground leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
                       {pillar.description}
                     </p>
                   </div>
