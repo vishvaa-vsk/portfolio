@@ -75,6 +75,8 @@ const About = () => {
                   <img
                     src="/Vishvaa.png"
                     alt="Vishvaa K"
+                    width={1089}
+                    height={1014}
                     className="w-full h-full object-cover object-top transition-all duration-700"
                     loading="lazy"
                     decoding="async"

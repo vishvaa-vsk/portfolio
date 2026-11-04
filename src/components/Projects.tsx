@@ -120,19 +120,35 @@ const Projects = () => {
                   {data.image ? (
                     project.title.includes("DBX") ? (
                       <div className="absolute inset-0 z-0 flex items-center justify-center p-4 bg-white/5 dark:bg-black/40">
-                        <img
-                          src={data.image}
-                          alt={project.title}
-                          className="max-w-full max-h-full object-contain relative z-0 drop-shadow-md transition-transform duration-500 group-hover:scale-105"
-                        />
+                        <picture className="max-w-full max-h-full flex items-center justify-center">
+                          <source
+                            srcSet={data.image.replace(/\.(png|jpg|jpeg)$/, ".webp")}
+                            type="image/webp"
+                          />
+                          <img
+                            src={data.image}
+                            alt={project.title}
+                            loading="lazy"
+                            decoding="async"
+                            className="max-w-full max-h-full object-contain relative z-0 drop-shadow-md transition-transform duration-500 group-hover:scale-105"
+                          />
+                        </picture>
                       </div>
                     ) : (
                       <div className="absolute inset-0 z-0">
-                        <img
-                          src={data.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover object-top relative z-0 transition-transform duration-700 group-hover:scale-105"
-                        />
+                        <picture className="w-full h-full block">
+                          <source
+                            srcSet={data.image.replace(/\.(png|jpg|jpeg)$/, ".webp")}
+                            type="image/webp"
+                          />
+                          <img
+                            src={data.image}
+                            alt={project.title}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover object-top relative z-0 transition-transform duration-700 group-hover:scale-105"
+                          />
+                        </picture>
                       </div>
                     )
                   ) : (
